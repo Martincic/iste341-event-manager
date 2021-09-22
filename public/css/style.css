@@ -1,0 +1,14 @@
+h1{
+    text-align: center;
+    padding: 2em 0;
+}
+
+.login-form{
+    padding: 2em;
+    margin: 0 6em;
+    border: 0.2em solid grey;
+}
+
+.nav-item button{
+    padding: 1em 1.5em;
+}
