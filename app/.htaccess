@@ -1,0 +1,7 @@
+#Disabling Directory Indexing --------------------------------------------------
+#The following line will remove directory indexing and make the server respond with a 403 forbidden message.
+#Options -Indexes
+
+# Hiding Directories -----------------------------------------------------------
+#To simply hide all the contents of the directory without forbidden message, use the IndexIgnore directive.
+IndexIgnore *

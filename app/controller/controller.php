@@ -23,4 +23,3 @@ class Controller {
         $view->render($data);
     }
 }
-
