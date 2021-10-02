@@ -4,7 +4,7 @@ Form copied from: https://www.w3schools.com/howto/howto_css_login_form.asp
 -->
 <html lang="en">
     <head>
-        <title><?php echo EventManager; ?></title>
+        <title><?php echo TITLE; ?></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="public/css/style.css" rel="stylesheet" type="text/css"/>

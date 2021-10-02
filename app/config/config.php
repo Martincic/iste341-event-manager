@@ -13,3 +13,5 @@ define("DB_NAME", "event_manager");    //replace this with your rit username
 define('URL_ROOT', 'http://' . $_SERVER['SERVER_NAME'] . pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME) . '/');
 
 define('TITLE', 'Event manager application');
+
+define('BASE_URL', 'http://localhost/iste341-event-manager');

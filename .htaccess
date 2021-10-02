@@ -4,4 +4,7 @@
 
 # Hiding Directories -----------------------------------------------------------
 #To simply hide all the contents of the directory without forbidden message, use the IndexIgnore directive.
-IndexIgnore *
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /iste341-event-manager/index.php?path=$1 [NC,L,QSA]

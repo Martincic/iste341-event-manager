@@ -1,18 +1,12 @@
 <?php
 
-//TODO: Person & Phone have something in common. Extract that in a parent class
-class Person {
+class Attendee extends Model{
 
     public $id;
     public $last_name;
     public $first_name;
     public $nick_name;
 
-    public function __construct() {
-        DB::connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    }
-
-    //TODO: implement inserting new person into the DB
     public function add($data) {
         
     }
@@ -21,9 +15,8 @@ class Person {
         return DB::queryOne('SELECT * FROM person WHERE id = :id', ['id' => $id], 'Person');
     }
 
-    //TODO: implement getting all person records from the DB
-    function getAll() {
-        
+    public function getAll() {
+        return DB::queryAll('SELECT * FROM attendee WHERE 1', [], Attendee::class);
     }
 
     //TODO: implement record deletion

@@ -15,6 +15,7 @@ class View {
         include 'app/view/inc/header.php';
         include $this->_template;
         include 'app/view/inc/footer.php';
+        die();
     }
 
 }
