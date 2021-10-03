@@ -20,7 +20,8 @@ class Attendee extends Model{
     }
 
     //TODO: implement record deletion
-    public function delete($data) {
+    public function delete($data) {     
+    
         
     }
 

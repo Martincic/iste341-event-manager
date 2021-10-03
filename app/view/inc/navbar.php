@@ -7,26 +7,26 @@
     <div class="bg-dark">
     <nav>
     <ul class="nav mr-auto mt-lg-0">
-        <form action="<?php echo BASE_URL ?>/" method="post">
+        <a href="<?php echo BASE_URL ?>/">
             <li class="nav-item">
                 <button type="submit" class="nav-link bg-dark text-light">Home</button>
             </li>
-        </form>
-        <form action="<?php echo BASE_URL ?>/allEvents" method="post">
+        </a>
+        <a href="<?php echo BASE_URL ?>/allEvents">
             <li class="nav-item">
             <button type="submit" class="nav-link bg-dark text-light">Events</button>
             </li>
-        </form>
-        <form action="<?php echo BASE_URL ?>/registrations" method="post">
+        </a>
+        <a href="<?php echo BASE_URL ?>/registrations">
             <li class="nav-item">
                 <button type="submit" class="nav-link bg-dark text-light">Registrations</button>
             </li>
-        </form>
-        <form action="<?php echo BASE_URL ?>/admin" method="post">
+        </a>
+        <a href="<?php echo BASE_URL ?>/admin">
             <li class="nav-item">
                 <button type="submit" class="nav-link bg-dark text-light">Admin</button>
             </li>
-        </form>
+        </a>
     </ul>
     </nav>
     </div>

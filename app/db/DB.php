@@ -71,4 +71,11 @@ class DB {
         return $statement->rowCount();
     }
 
+    public static function queryAndReturnID($query, $params = array())
+    {
+        $statement = self::$connection->prepare($query);
+        $statement->execute($params);
+        return $statement->lastInsertId();
+    }
+
 }

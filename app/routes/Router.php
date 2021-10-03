@@ -31,7 +31,7 @@ class Router {
             This is an example of protected route.
             (Route where user must be logged in)
         */
-        if('admin' == $slug) {
+        if('create-events' == $slug) {
             self::protectRoute('admin');
             HomeController::admin();
         }
@@ -90,7 +90,7 @@ class Router {
     */
     public static function getSlug()
     {   
-        $request = $_SERVER['REQUEST_URI'];
+        $request = $_SERVER['REQUEST_URI']; 
         $request = explode('/', $request);
         array_shift($request);
         array_shift($request);
