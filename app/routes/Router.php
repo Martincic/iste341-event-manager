@@ -16,35 +16,39 @@ class Router {
         
         //uncomment line below to set yourself as admin
         //$_SESSION['user']['role'] = 'admin';
-        
-        $slug = self::getSlug();
-        $slug_arr = explode('/',$slug);
-        
-        if('' == $slug) {
+        $slug = explode('/',self::getSlug());
+
+        if('' == $slug[0]) {
             HomeController::index();
         }
 
-        if('index' == $slug) {
+        if('index' == $slug[0]) {
             HomeController::index();
         }
         
         /*
             This is an example of route with parameter
         */
-        if('registrations' == $slug_arr[0]) {
-            HomeController::registrations($slug_arr[1]);
-        }
         
-        if('person' == $slug) {
+        if('person' == $slug[0]) {
             HomeController::person();
         }
         
-        if('allEvents' == $slug) {
-            HomeController::allEvents();
-        }
-        
-        if('registrations' == $slug) {
-            HomeController::registrations();
+        /*
+            Route group for event routes 
+            baseurl/events routes and all children 
+            should be defined within this group
+        */
+        if('events' == $slug[0]) {
+            //if slug 1 is not set, url must look like /events
+            switch(count($slug)) {
+                case 1:
+                    EventController::index(); // /events
+                case 2:
+                    EventController::single($slug[1]); // /events/{id}
+            }
+
+
         }
         
         if('home' == $slug) {

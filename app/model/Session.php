@@ -4,8 +4,8 @@ class Session extends Model{
 
     public $idsession;
     public $name;
-    public $datestart;
-    public $dateend;
+    public $startdate;
+    public $enddate;
     public $numberallowed;
     public $event;
 
@@ -16,7 +16,6 @@ class Session extends Model{
         $event = new Event();
                 
         $session_obj->event = $event->getById($event_id);
-                
         return $session_obj;
     }
 
