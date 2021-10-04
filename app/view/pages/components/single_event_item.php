@@ -4,17 +4,35 @@ $date1 = new DateTime($event->datestart);
 $date2 = new DateTime($event->dateend);
 $duration = $date1->diff($date2)->format("%d");
 
+// GET ALL ATTENDEES FOR THIS EVENT
+$x = 0;
+
+$currentAttendees = $event->numberallowed - $x;
 ?>
-<li class="list-group-item d-flex justify-content-between align-items-start m-3">
-    <div class="ms-2 me-auto">
-        <div>
-            <div class="h2"><?php echo $event->name ?></div>
-            <p class='small m-1'>Starts on <?php echo $event->datestart ?></p>
-            <p class='small m-1'>Duration: <?php echo $duration ?> days</p>  <!--date start - end -->
-            <p class='small m-1'>Num visitors allowed: <?php echo $event->numberallowed ?></p>    
-            <!-- IF CURRENT VISITORS < ALLOWED VISITORS -->
-            <a href="events/<?php echo $event->idevent;?>"><button type="button" class="btn btn-primary">Register</button></a>
-        </div>
+
+<div class="swiper-slide">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- NAME -->
+                <div class="h3 pb-4">Name: <?php echo $event->name ?></div>
+
+                <!-- DATE START -->
+                <p class=''>Starts on: <?php echo $event->datestart ?></p>
+
+                <!-- DATE END -->
+                <p class=''>Ends on: <?php echo $event->dateend ?></p>
+
+                <!-- DURATION -->
+                <p class=''>Duration: <?php echo $duration ?> days</p>  <!--date start - end -->
+            </div>
+            <div class="col-md-6">
+                <!-- ATTENDEES ALLOWED -->
+                <p class='pt-5 mt-3'>Number of visitors attending: <?php echo $currentAttendees . " / " . $event->numberallowed ?></p>    
+
+                <!-- REGISTER BTN -->
+                <a href="events/<?php echo $event->idevent; //event_id?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Register</span></button></a>
+            </div>
+        </div>   
     </div>
-    <p clas='h4'>People coming to event: <span class="badge rounded-pill">//TODO: figure this out</span></p>
-</li>
+</div>
