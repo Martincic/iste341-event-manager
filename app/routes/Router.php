@@ -18,6 +18,7 @@ class Router {
         //$_SESSION['user']['role'] = 'admin';
         
         $slug = self::getSlug();
+        $slug_arr = explode('/',$slug);
         
         if('' == $slug) {
             HomeController::index();
@@ -28,12 +29,10 @@ class Router {
         }
         
         /*
-            This is an example of protected route.
-            (Route where user must be logged in)
+            This is an example of route with parameter
         */
-        if('create-events' == $slug) {
-            self::protectRoute('admin');
-            HomeController::admin();
+        if('registrations' == $slug_arr[0]) {
+            HomeController::registrations($slug_arr[1]);
         }
         
         if('person' == $slug) {

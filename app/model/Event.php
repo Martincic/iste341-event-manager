@@ -22,7 +22,7 @@ class Event extends Model{
     }
 
     public function getAll() {
-        return DB::queryAll('SELECT * FROM "event" WHERE 1', [], Event::class);
+        return DB::queryAll('SELECT * FROM event WHERE 1', [], Event::class);
     }
 
     public function add($data) {

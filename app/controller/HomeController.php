@@ -48,17 +48,24 @@ class HomeController {
         $view->render([]); //put [] as argument when no data in view
     }
 
-    public static function registrations() {
+    public static function registrations($event_id) {
 
         $view = new View('app/view/pages/registrations.php');
         
-        $view->render([]); //put [] as argument when no data in view
+        $model = new Session;
+
+        $data = $model->getAll($event_id);
+
+        $view->render($data); //put [] as argument when no data in view
     }
 
     public static function allEvents() {
 
         $view = new View('app/view/pages/allEvents.php');
         
-        $view->render([]); //put [] as argument when no data in view
+        $model = new Event;
+        $events = $model->getAll();
+
+        $view->render($events); //put [] as argument when no data in view
     }
 }

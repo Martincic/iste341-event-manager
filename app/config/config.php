@@ -6,7 +6,7 @@ define("DB_PASS", "");     //replace with data found in .my.cnf if hosted on Sol
 define("DB_NAME", "event_manager");    //replace this with your rit username
 
 //C:\Program Files (x86)\Ampps\www\...
-//define('PROJECT_ROOT', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . '/');
+define('PROJECT_ROOT', pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME) . '/');
 
 //http://localhost/.../
 //http://solace.ist.rit.edu/../
@@ -14,4 +14,4 @@ define('URL_ROOT', 'http://' . $_SERVER['SERVER_NAME'] . pathinfo($_SERVER['SCRI
 
 define('TITLE', 'Event manager application');
 
-define('BASE_URL', 'https://8a62-188-252-185-142.ngrok.io/iste341-event-manager');
+define('BASE_URL', 'http://localhost/iste341-event-manager');

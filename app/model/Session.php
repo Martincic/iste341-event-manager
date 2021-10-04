@@ -20,8 +20,8 @@ class Session extends Model{
         return $session_obj;
     }
 
-    public function getAll() {
-        return DB::queryAll('SELECT * FROM "session" WHERE 1', [], Session::class);
+    public function getAll($event_id) {
+        return DB::queryAll('SELECT * FROM session WHERE event = :event_id', ['event_id' => $event_id], Session::class);
     }
 
     public function add($data) {

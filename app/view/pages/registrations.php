@@ -5,7 +5,7 @@
         - ALL can use
 -->
 
-<?php include 'app/view/inc/navbar.php';?>
+<?php include 'app/view/inc/navbar.php';print_r($data)?>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
