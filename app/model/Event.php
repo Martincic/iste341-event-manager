@@ -10,7 +10,7 @@ class Event extends Model{
     public $venue;
 
     public function getById($id) {
-        $event_obj = DB::queryOne('SELECT * FROM "event" WHERE idevent = :id', ['id' => $id], Event::class);
+        $event_obj = DB::queryOne('SELECT * FROM event WHERE idevent = :id', ['id' => $id], Event::class);
         //get venue obj
         $venue_id = $event_obj->venue;
         $venue = new Venue();
@@ -63,6 +63,11 @@ class Event extends Model{
 
     public function managers()
     {
-        return DB::queryAll('SELECT * from attendees where ', Attendee::class, []);
+        return DB::queryAll('SELECT * from attendees where 1', Attendee::class, []);
+    }
+    
+    public function sessions()
+    {
+        return DB::queryAll('SELECT * from session where event = :id', ['id' => $this->idevent], Session::class);
     }
 }

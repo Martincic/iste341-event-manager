@@ -10,7 +10,7 @@
         <?php 
 
             foreach ($data as $event) {
-                include('components/single_event_item.php');
+                include(__DIR__.'/../components/single_event_item.php');
             }
         ?>
     </ol>

@@ -8,7 +8,7 @@ class Venue extends Model{
 
 
     public function getById($id) {
-        return DB::queryOne('SELECT * FROM "venue" WHERE idvenue = :id', ['id' => $id], Venue::class);
+        return DB::queryOne('SELECT * FROM venue WHERE idvenue = :id', ['id' => $id], Venue::class);
     }
 
     public function getAll() {

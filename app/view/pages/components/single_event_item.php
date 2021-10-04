@@ -13,7 +13,7 @@ $duration = $date1->diff($date2)->format("%d");
             <p class='small m-1'>Duration: <?php echo $duration ?> days</p>  <!--date start - end -->
             <p class='small m-1'>Num visitors allowed: <?php echo $event->numberallowed ?></p>    
             <!-- IF CURRENT VISITORS < ALLOWED VISITORS -->
-            <a href="registrations/<?php echo $event->venue; //event_id?>"><button type="button" class="btn btn-primary">Register</button></a>
+            <a href="events/<?php echo $event->idevent;?>"><button type="button" class="btn btn-primary">Register</button></a>
         </div>
     </div>
     <p clas='h4'>People coming to event: <span class="badge rounded-pill">//TODO: figure this out</span></p>

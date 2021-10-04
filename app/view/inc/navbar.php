@@ -12,19 +12,27 @@
                 <button type="submit" class="nav-link bg-dark text-light">Home</button>
             </li>
         </a>
-        <a href="<?php echo BASE_URL ?>/allEvents">
+        <a href="<?php echo BASE_URL ?>/events">
             <li class="nav-item">
             <button type="submit" class="nav-link bg-dark text-light">Events</button>
             </li>
         </a>
-        <a href="<?php echo BASE_URL ?>/registrations">
-            <li class="nav-item">
-                <button type="submit" class="nav-link bg-dark text-light">Registrations</button>
-            </li>
-        </a>
+        
         <a href="<?php echo BASE_URL ?>/admin">
             <li class="nav-item">
                 <button type="submit" class="nav-link bg-dark text-light">Admin</button>
+            </li>
+        </a>
+
+        
+        <a class='float-right' href="<?php echo BASE_URL ?>/login">
+            <li class="nav-item">
+                <button type="submit" class="nav-link bg-dark text-light">Login</button>
+            </li>
+        </a>
+        <a class='float-right' href="<?php echo BASE_URL ?>/register">
+            <li class="nav-item">
+                <button type="submit" class="nav-link bg-dark text-light">Register</button>
             </li>
         </a>
     </ul>
