@@ -1,6 +1,3 @@
-    
-<?php include 'app/view/inc/navbar.php';?>
-
 <form class='mt-5'>
         <h2> Person </h2>
         <?php 

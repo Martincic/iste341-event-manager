@@ -17,13 +17,33 @@ class Router {
         //uncomment line below to set yourself as admin
         //$_SESSION['user']['role'] = 'admin';
         $slug = explode('/',self::getSlug());
-
+        
         if('' == $slug[0]) {
             HomeController::index();
         }
-
+        
         if('index' == $slug[0]) {
             HomeController::index();
+        }
+        
+        if('login' == $slug[0]) {
+            AuthController::login();
+        }
+
+        if('register' == $slug[0]) {
+            AuthController::register();
+        }
+
+        if('login-form' == $slug[0]) {
+            AuthController::loginForm();
+        }
+        
+        if('register-form' == $slug[0]) {
+            AuthController::registerForm();
+        }
+
+        if('home' == $slug[0]) {
+            HomeController::home();
         }
         
         /*
@@ -45,14 +65,9 @@ class Router {
                 case 1:
                     EventController::index(); // /events
                 case 2:
+                    self::protectRoute($role = null, ['Only logged in users can view sessions.']);//only registered users can view sessions
                     EventController::single($slug[1]); // /events/{id}
             }
-
-
-        }
-        
-        if('home' == $slug) {
-            HomeController::home();
         }
 
         //default if no routes match
@@ -66,7 +81,7 @@ class Router {
         look only if user is logged in. If there is parameter, it will check 
         if user is of that exact role.
     */
-    public static function protectRoute(string $role = null)
+    public static function protectRoute(string $role = null, $message = [])
     {
         //if user exists
         if(isset($_SESSION['user'])){
@@ -78,15 +93,15 @@ class Router {
             if($_SESSION['user']['role'] == $role) {
                 return; //continue
             }
-            else self::abort();
+            else self::abort($message);
         }
-        else self::abort();
+        else self::abort($message);
     }
 
-    public static function abort()
+    public static function abort($errors = [])
     {
         $view = new View('app/view/pages/login.php');
-        $view->render([]);
+        $view->render(['errors' => $errors]);
     }
     /*
         .htaccess points any request to router.php (here),

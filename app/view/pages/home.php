@@ -4,7 +4,6 @@
         - simple navigacija na ostale stranice
 -->
 
-<?php include 'app/view/inc/navbar.php';?>
 <form>
 <div class="container">
     <div class="row">

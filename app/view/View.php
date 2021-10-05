@@ -1,3 +1,4 @@
+
 <?php
 
 class View {
@@ -13,6 +14,7 @@ class View {
             throw new Exception("Teplate file " . $this->_template . " doesn't exist.");
         }
         include 'app/view/inc/header.php';
+        include 'app/view/inc/navbar.php';
         include $this->_template;
         include 'app/view/inc/footer.php';
         die();

@@ -10,7 +10,6 @@
     - ADMIN & EVENT MANAGER can use
 -->
 
-<?php include 'app/view/inc/navbar.php';?>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
