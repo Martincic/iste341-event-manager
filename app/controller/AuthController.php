@@ -5,27 +5,69 @@
  */
 class AuthController extends Controller{
 
+    /*
+        Authenticate the u
+    */
     public static function login() {
-        $errors = [];
         if($_SERVER['REQUEST_METHOD'] != 'POST') self::redirectBack();
+        
+        //filter
+        $username = (new Filter)->data('Username', $_POST['username'])
+                                ->sanitize_string()
+                                ->required()
+                                ->pattern('Alphanumeric')
+                                ->min(4)
+                                ->max(20);
+        
+        $password = (new Filter)->data('Password', $_POST['password'])
+                                ->sanitize_string()
+                                ->required()
+                                ->pattern('Alphanumeric')
+                                ->min(4)
+                                ->max(20);
+        $errors = [
+            'username' => $username->getErrors(),
+            'password' => $password->getErrors(),
+        ];
 
-        if(empty($_POST['username'])) array_push($errors, 'Please fill out your username.');
-        if(empty($_POST['password'])) array_push($errors, 'Please fill out your password.');
-
-        if(!empty($errors)) self::abort('login', $errors);
+        if(!$username->isSuccess() || !$password->isSuccess()) self::abort('login', $errors);
+        
     }
 
     public static function register() {
         $errors = [];
         if($_SERVER['REQUEST_METHOD'] != 'POST') self::redirectBack();
+        
+        //filter
+        $username = (new Filter)->data('Username', $_POST['username'])
+                                ->sanitize_string()
+                                ->required()
+                                ->pattern('Alphanumeric')
+                                ->min(4)
+                                ->max(20);
 
-        if(empty($_POST['username'])) array_push($errors, 'Please fill out your username.');
-        if(empty($_POST['password'])) array_push($errors, 'Please fill out your password.');
-        if(empty($_POST['password_confirm'])) array_push($errors, 'Please fill out your password confirmation.');
+        $password = (new Filter)->data('Password', $_POST['password'])
+                                ->sanitize_string()
+                                ->required()
+                                ->pattern('Alphanumeric')
+                                ->min(4)
+                                ->max(20);
+        
+        $password_confirm = (new Filter)->data('Password confiration', $_POST['password_confirm'])
+                                ->sanitize_string()
+                                ->required()
+                                ->pattern('Alphanumeric')
+                                ->min(4)
+                                ->max(20);
+        $errors = [
+            'username' => $username->getErrors(),
+            'password' => $password->getErrors(),
+            'password_confirm' => $password_confirm->getErrors()
+        ];
+        
+        if($password->value != $password_confirm->value) array_push($errors['password'], 'Your passwords do not match.');
 
-        if($_POST['password'] != $_POST['password_confirm']) array_push($errors, 'Your passwords do not match.');
-
-        if(!empty($errors)) self::abort('register', $errors);
+        if(!$username->isSuccess() || !$password->isSuccess() || !$password_confirm->isSuccess()) self::abort('register', $errors);
     }
 
     public static function loginForm()
