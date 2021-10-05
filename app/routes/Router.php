@@ -65,7 +65,7 @@ class Router {
                 case 1:
                     EventController::index(); // /events
                 case 2:
-                    self::protectRoute($role = null, ['Only logged in users can view sessions.']);//only registered users can view sessions
+                    self::protectRoute($role = null, 'Only logged in users can view sessions.');//only registered users can view sessions
                     EventController::single($slug[1]); // /events/{id}
             }
         }
@@ -81,7 +81,7 @@ class Router {
         look only if user is logged in. If there is parameter, it will check 
         if user is of that exact role.
     */
-    public static function protectRoute(string $role = null, $message = [])
+    public static function protectRoute(string $role = null, string $message)
     {
         //if user exists
         if(isset($_SESSION['user'])){
@@ -90,7 +90,7 @@ class Router {
             if(!$role) return;
 
             //if role is set and matches, continue
-            if($_SESSION['user']['role'] == $role) {
+            if($_SESSION['user']->role == $role) {
                 return; //continue
             }
             else self::abort($message);
@@ -98,10 +98,10 @@ class Router {
         else self::abort($message);
     }
 
-    public static function abort($errors = [])
+    public static function abort($message)
     {
         $view = new View('app/view/pages/login.php');
-        $view->render(['errors' => $errors]);
+        $view->render(['message' => $message]);
     }
     /*
         .htaccess points any request to router.php (here),

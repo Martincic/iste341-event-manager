@@ -27,7 +27,7 @@ class Event extends Model{
 
     public function add($data) {
         //get user/manager
-        $manager_id = $_SESSION['user']['id'];
+        $manager_id = $_SESSION['user']->id;
         //create event
         $event_id = DB::queryAndReturnID('INSERT INTO "event"("idevent","name", "datestart". "dateend", "numberallowed", "venue")
                     VALUES(:idevent, :"name", :datestart, :dateend, :numberallowed, :"venue")',

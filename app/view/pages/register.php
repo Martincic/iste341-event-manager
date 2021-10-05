@@ -3,6 +3,9 @@
         <div class="col-md-12 text-center">
             <h1>REGISTER</h1>
           
+            <?php 
+                if(isset($data['message'])) echo '<h2 class="text-inform">'.$data['message'].'</h2>';
+            ?>
         </div>
     </div>
 

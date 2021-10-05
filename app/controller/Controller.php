@@ -7,14 +7,13 @@ class Controller {
 
     public static function redirectBack()
     {
-        print_r($_SERVER);
-        header("location:javascript://history.go(-1)");
+        header("Location:javascript://history.go(-1)");
         die();
     }
     
-    public static function abort(string $view, $errors = [])
+    public static function abort(string $view, $data = [])
     {
         $view = new View('app/view/pages/'.$view.'.php');
-        $view->render(['errors' => $errors]);
+        $view->render($data);
     }
 }

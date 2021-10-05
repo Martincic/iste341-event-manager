@@ -6,9 +6,36 @@
 class AuthController extends Controller{
 
     /*
-        Authenticate the u
+        Display login form
+    */
+    public static function loginForm()
+    {
+        if(!empty($_SESSION)) {
+            session_destroy();
+            header('Location:'.BASE_URL.'/login-form');
+            die();
+        }
+        $view = new View('app/view/pages/login.php');
+
+        $view->render([]); //put [] as argument when no data in view
+    }
+    
+    /*
+        Display register form
+    */
+    public static function registerForm()
+    {
+        if(!empty($_SESSION)) self::redirectBack();
+        $view = new View('app/view/pages/register.php');
+
+        $view->render([]); //put [] as argument when no data in view
+    }
+
+    /*
+        Validate inputs and authenticate the user
     */
     public static function login() {
+        if(!empty($_SESSION)) self::redirectBack();
         if($_SERVER['REQUEST_METHOD'] != 'POST') self::redirectBack();
         
         //filter
@@ -30,12 +57,18 @@ class AuthController extends Controller{
             'password' => $password->getErrors(),
         ];
 
-        if(!$username->isSuccess() || !$password->isSuccess()) self::abort('login', $errors);
+        if(!$username->isSuccess() || !$password->isSuccess()) self::abort('login', ['errors'=> $errors]);
         
+        $user = (new Attendee)->authorize($username->value, $password->value);
+        $_SESSION['user'] = $user;
+        header('Location: '.BASE_URL . '/');
+        die();
     }
 
+    /*
+        Validate input, register and authenticate user
+    */
     public static function register() {
-        $errors = [];
         if($_SERVER['REQUEST_METHOD'] != 'POST') self::redirectBack();
         
         //filter
@@ -64,23 +97,16 @@ class AuthController extends Controller{
             'password' => $password->getErrors(),
             'password_confirm' => $password_confirm->getErrors()
         ];
-        
         if($password->value != $password_confirm->value) array_push($errors['password'], 'Your passwords do not match.');
 
-        if(!$username->isSuccess() || !$password->isSuccess() || !$password_confirm->isSuccess()) self::abort('register', $errors);
-    }
+        if(!$username->isSuccess() || !$password->isSuccess() || !$password_confirm->isSuccess()) self::abort('register', ['errors'=> $errors]);
+        
+        if((new Attendee)->usernameExists($username->value)) self::abort('register', ['message' => 'This username already exists!']);        
+        
+        $user = (new Attendee)->create($username->value, $password->value) ?? null;
 
-    public static function loginForm()
-    {
-        $view = new View('app/view/pages/login.php');
-
-        $view->render([]); //put [] as argument when no data in view
-    }
-    
-    public static function registerForm()
-    {
-        $view = new View('app/view/pages/register.php');
-
-        $view->render([]); //put [] as argument when no data in view
+        $_SESSION['user'] = $user;
+        header('Location: '.BASE_URL . '/');
+        die();
     }
 }

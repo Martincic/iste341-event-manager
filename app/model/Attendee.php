@@ -3,12 +3,40 @@
 class Attendee extends Model{
 
     public $id;
-    public $last_name;
-    public $first_name;
-    public $nick_name;
+    public $name;
+    public $password;
+    public $role;
+    public $test;
 
-    public function add($data) {
-        
+    const USER_REGISTER_DEFAULT_ROLE = 1;
+
+    public function authorize($username, $password) {        
+        $user = DB::queryOne("SELECT * FROM attendee WHERE name = :username", [
+            'username' => $username, 
+        ], 'attendee');
+        return $user;
+    }
+    
+    public function create($username, $password) 
+    {    
+        if($this->usernameExists($username)) return;
+
+        $hash = $password;
+        //Create user
+        $id = DB::queryAndReturnID("INSERT INTO attendee(name, password, role) VALUES(:username, :pwd, :roleid);", [
+            'username' => $username,
+            'pwd' => $hash,
+            'roleid' => self::USER_REGISTER_DEFAULT_ROLE
+        ]);
+
+        //Query and return user
+        return DB::queryOne("SELECT * FROM attendee WHERE id = :id", [
+            'id' => $id
+        ], 'Attendee');
+    }
+
+    public function usernameExists($username) {
+        return  DB::query("SELECT * FROM attendee WHERE name = :username", ['username' => $username], 'Attendee');
     }
 
     public function getById($id) {
@@ -24,10 +52,4 @@ class Attendee extends Model{
     
         
     }
-
-    public function __toString() {
-        return "I am {$this->first_name} {$this->last_name} and my
-			nickname is {$this->nick_name}";
-    }
-
 }

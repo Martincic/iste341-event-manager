@@ -53,11 +53,11 @@ ENGINE = MyISAM;
 DROP TABLE IF EXISTS `attendee` ;
 
 CREATE TABLE IF NOT EXISTS `attendee` (
-  `idattendee` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
   `role` INT NULL,
-  PRIMARY KEY (`idattendee`),
+  PRIMARY KEY (`id`),
   INDEX `role_idx` (`role` ASC))
 ENGINE = MyISAM;
 

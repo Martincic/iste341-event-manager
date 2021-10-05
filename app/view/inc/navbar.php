@@ -16,7 +16,7 @@
     </a>
 
     <?php 
-        if(isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') {
+        if(isset($_SESSION['user']->role) && $_SESSION['user']->role == 'admin') {
             echo `
             <a href="<?php echo BASE_URL ?>/admin">
                 <li class="nav-item">
@@ -28,15 +28,28 @@
    
     <a href="<?php echo BASE_URL ?>/login-form">
         <li class="nav-item">
-            <button type="submit" class="nav-link text-light"><span class="nav-span">Login</span></button>
+            <button type="submit" class="nav-link text-light">
+                <span class="nav-span">
+                    <?php 
+                        if(empty($_SESSION)) echo 'Login';
+                        else echo 'Log out';
+                    ?>
+                </span>
+            </button>
         </li>
     </a>
-    
-    <a href="<?php echo BASE_URL ?>/register-form">
-        <li class="nav-item">
-            <button type="submit" class="nav-link text-light"><span class="nav-span">Register</span></button>
-        </li>
-    </a>
+    <!-- Display only if there is no user -->
+    <?php 
+        $url = BASE_URL;
+        if(empty($_SESSION)) {
+            echo "
+            <a href='".$url."/register-form'>
+                <li class='nav-item'>
+                    <button type='submit' class='nav-link text-light'><span class='nav-span'>Register</span></button>
+                </li>
+             </a>";
+        } 
+    ?>  
 </ul>
 </nav>
 

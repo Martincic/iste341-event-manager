@@ -75,7 +75,7 @@ class DB {
     {
         $statement = self::$connection->prepare($query);
         $statement->execute($params);
-        return $statement->lastInsertId();
+        return self::$connection->lastInsertId();
     }
 
 }
