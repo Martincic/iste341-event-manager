@@ -21,13 +21,13 @@
     </a>
 
     <?php 
-        if(isset($_SESSION['user']->role) && $_SESSION['user']->role == 'admin') {
-            echo `
-            <a href="<?php echo BASE_URL ?>/admin">
+        if(isset($_SESSION['user']->role) && $_SESSION['user']->role == '2') {
+            echo '
+            <a href="'.BASE_URL.'/manage">
                 <li class="nav-item">
-                    <button type="submit" class="nav-link text-light"><span class="nav-span">Admin</span></button>
+                    <button type="submit" class="nav-link text-light"><span class="nav-span">Manage</span></button>
                 </li>
-             </a>`;
+            </a>';
         } 
     ?>  
    

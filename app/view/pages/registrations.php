@@ -13,12 +13,12 @@
     <div class="row content">
         <div class="col-md-12">
         <?php 
-        if(count($data['events']) > 0){
+        if(count($data['sessions']) > 0){
             echo '
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">';
-                foreach ($data['events'] as $event) {
-                    include(__DIR__.'/../components/single_registration_item.php');
+                foreach ($data['sessions'] as $session) { 
+                    include(__DIR__.'/components/single_registration_item.php');
                 }
 
             echo '</div>
@@ -28,8 +28,8 @@
         }else{
             echo '
             <p>No registrations found!</p>
-            <p>Register for events or sessions using:</p>
-            <p><a href=BASE_URL/events>Link to all Events</a></p>';
+            <p>Register for sessions or sessions using:</p>
+            <p><a href="' . BASE_URL .'/sessions">Link to all sessions</a></p>';
         }
         ?>
         </div>

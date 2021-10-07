@@ -58,8 +58,9 @@ class AuthController extends Controller{
         ];
 
         if(!$username->isSuccess() || !$password->isSuccess()) self::abort('login', ['errors'=> $errors]);
+        $pass = hash('sha256', $password->value);
         
-        $user = (new Attendee)->authorize($username->value, $password->value);
+        $user = (new Attendee)->authorize($username->value, $pass);
         $_SESSION['user'] = $user ? $user : null;
         
         if(gettype($user) == 'boolean') self::abort('login', ['message' => 'No user found with these credentials.']);
@@ -89,7 +90,7 @@ class AuthController extends Controller{
                                 ->min(4)
                                 ->max(20);
         
-        $password_confirm = (new Filter)->data('Password confiration', $_POST['password_confirm'])
+        $password_confirm = (new Filter)->data('Password confirmation', $_POST['password_confirm'])
                                 ->sanitize_string()
                                 ->required()
                                 ->pattern('Alphanumeric')
@@ -105,8 +106,8 @@ class AuthController extends Controller{
         if(!$username->isSuccess() || !$password->isSuccess() || !$password_confirm->isSuccess()) self::abort('register', ['errors'=> $errors]);
         
         if((new Attendee)->usernameExists($username->value)) self::abort('register', ['message' => 'This username already exists!']);        
-        
-        $user = (new Attendee)->create($username->value, $password->value) ?? null;
+        $pass = hash('sha256', $password->value);
+        $user = (new Attendee)->create($username->value, $pass) ?? null;
 
         $_SESSION['user'] = $user ? $user : null;
         header('Location: '.BASE_URL . '/');

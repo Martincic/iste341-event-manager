@@ -61,9 +61,12 @@ class Event extends Model{
 			 {$this->dateend}.The max number of attendees is {$this->numberallowed}";
     }
 
-    public function managers()
+    public function managedBy($user_id)
     {
-        return DB::queryAll('SELECT * from attendees where 1', Attendee::class, []);
+        return DB::queryAll('SELECT * from event where idevent IN 
+                            (SELECT event from manager_event WHERE manager = :id)', [
+                                'id' => $user_id
+                            ], Event::class);
     }
     
     public function sessions()

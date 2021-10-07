@@ -17,14 +17,6 @@ class Router {
         //uncomment line below to set yourself as admin
         //$_SESSION['user']['role'] = 'admin';
         $slug = explode('/',self::getSlug());
-
-        if('' == $slug[0]) {
-            HomeController::index();
-        }
-        
-        if('index' == $slug[0]) {
-            HomeController::index();
-        }
         
         if('login' == $slug[0]) {
             AuthController::login();
@@ -42,12 +34,23 @@ class Router {
             AuthController::registerForm();
         }
 
+        //To access any routes below this line, user needs to be attendee
+        self::protectRoute($role = null, 'Please log in');
+
+        if('' == $slug[0]) {
+            HomeController::index();
+        }
+        
+        if('index' == $slug[0]) {
+            HomeController::index();
+        }
+
         if('home' == $slug[0]) {
             HomeController::home();
         }
 
-        //TODO: move to event controller?
         if('registrations' == $slug[0]) {
+           
             EventController::registrations();
         }
         
@@ -70,16 +73,25 @@ class Router {
                 case 1:
                     EventController::index(); // /events
                 case 2:
-                    self::protectRoute($role = null, 'Only logged in users can view sessions.');//only registered users can view sessions
+                   
                     EventController::single($slug[1]); // /events/{event_id}
                 case 4:
                     if($slug[2] == 'register'){
-                        self::protectRoute($role = null, 'Only logged in users can view sessions.');//only registered users can view sessions
+                       
                         EventController::register($slug[3]); // /events/{event_id}/register/{session_id}
                     }
             }
         }
 
+        
+        //To access any routes below this line, user needs to be a manager
+        self::protectRoute('2', 'Manager role required.');
+
+        if('manage' == $slug[0]) {
+            ManagerController::eventList();
+        }
+
+        
         //default if no routes match
         http_response_code(404);
         $view = new View('app/view/pages/404.php');
@@ -103,7 +115,10 @@ class Router {
             if($_SESSION['user']->role == $role) {
                 return; //continue
             }
-            else self::abort($message);
+            else  {
+                if($_SESSION['user']->role == '3') return;
+                self::abort($message);
+            }
         }
         else self::abort($message);
     }

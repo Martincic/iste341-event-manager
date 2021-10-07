@@ -83,4 +83,13 @@ class Session extends Model{
             'attendee_id' => $user->id,
         ]);
     }
+
+    public function whereUserRegistered(Attendee $user)
+    {
+        return DB::queryAll("SELECT * FROM session WHERE idsession IN 
+                            (SELECT session FROM attendee_session WHERE attendee = :id);", [
+                        'id' => $user->id
+                    ],
+                    Session::class);
+    }
 }
