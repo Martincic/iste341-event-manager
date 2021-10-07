@@ -48,7 +48,7 @@ class Router {
 
         //TODO: move to event controller?
         if('registrations' == $slug[0]) {
-            HomeController::registrations();
+            EventController::registrations();
         }
         
         /*

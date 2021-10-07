@@ -46,6 +46,10 @@ class Attendee extends Model{
         return DB::queryAll('SELECT * FROM attendee WHERE 1', [], Attendee::class);
     }
 
+    public function getId($username, $password) {
+        return DB::queryOne('SELECT id FROM attendee WHERE name = :username AND password = :password', ['username' => $username,'password' => $password], Attendee::class);
+    }
+
     //TODO: implement record deletion
     public function delete($data) {     
     
