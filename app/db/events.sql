@@ -169,6 +169,25 @@ INSERT INTO `venue` (`idvenue`, `name`, `capacity`) VALUES
 (2, 'Bundek park', 6000);
 
 --
+-- Dumping data for table `attendee_session`
+--
+
+INSERT INTO `attendee_session` (`session`, `attendee`) VALUES
+(1, 30);
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `attendee_event`
+--
+
+INSERT INTO `attendee_event` (`event`, `attendee`, `paid`) VALUES
+(1, 30, 100);
+
+-- --------------------------------------------------------
+
+
+--
 -- Indexes for dumped tables
 --
 
