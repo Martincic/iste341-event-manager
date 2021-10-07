@@ -7,7 +7,8 @@ $duration = $date1->diff($date2)->format("%hh, %imin");
 // GET ALL ATTENDEES FOR THIS EVENT
 $x = 0;
 
-$currentAttendees = $session->numberallowed - $x;
+$currentAttendees = count($session->attendees());
+
 ?>
 
 <div class="swiper-slide">

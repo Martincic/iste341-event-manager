@@ -45,6 +45,11 @@ class Router {
         if('home' == $slug[0]) {
             HomeController::home();
         }
+
+        //TODO: move to event controller?
+        if('registrations' == $slug[0]) {
+            HomeController::registrations();
+        }
         
         /*
             This is an example of route with parameter

@@ -49,4 +49,8 @@ class Session extends Model{
 			 {$this->dateend}.The max number of attendees is {$this->numberallowed}";
     }
 
+    public function attendees(){
+        return  DB::queryAll('SELECT * from attendee_session WHERE session = :id', ['id' => $this->idsession], AttendeeSession::class);
+    }
+
 }

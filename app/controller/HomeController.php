@@ -47,4 +47,12 @@ class HomeController {
         
         $view->render([]); //put [] as argument when no data in view
     }
+
+    //TODO: move to event controller?
+    public static function registrations() {
+
+        $view = new View('app/view/pages/registrations.php');
+        
+        $view->render([]); //put [] as argument when no data in view
+    }
 }

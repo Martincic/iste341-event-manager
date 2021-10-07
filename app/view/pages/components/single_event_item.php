@@ -5,9 +5,8 @@ $date2 = new DateTime($event->dateend);
 $duration = $date1->diff($date2)->format("%d days");
 
 // GET ALL ATTENDEES FOR THIS EVENT
-$x = 0;
-
-$currentAttendees = $event->numberallowed - $x;
+// $x = 0;
+$currentAttendees = count($event->attendees());
 ?>
 
 <div class="swiper-slide">

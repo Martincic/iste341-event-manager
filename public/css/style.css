@@ -58,11 +58,11 @@ nav ul{
     
 }
 
-.allEvents{
+.hero{
     height: 40vh;
 }
 
-.swiper {
+.swiper, .content {
     width: 100%;
     height: 60vh;
     margin-left: auto;

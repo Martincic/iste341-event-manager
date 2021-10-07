@@ -70,4 +70,9 @@ class Event extends Model{
     {
         return DB::queryAll('SELECT * from session where event = :id', ['id' => $this->idevent], Session::class);
     }
+
+    public function attendees(){
+        return  DB::queryAll('SELECT * from attendee_event WHERE event = :id', ['id' => $this->idevent], AttendeeEvent::class);
+    }
+      
 }

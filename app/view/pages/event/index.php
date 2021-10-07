@@ -1,6 +1,6 @@
 <?php include 'app/view/inc/navbar.php';?>
 <div class="container">
-    <div class="row allEvents">
+    <div class="row hero">
         <div class="col-md-12">
             <h1>ALL EVENTS</h1>
             <p class="text-center">Scroll down to view events</p>
@@ -10,7 +10,7 @@
 
         </div>
     </div>
-    <div class="row">
+    <div class="row content">
         <div class="col-md-12">
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
