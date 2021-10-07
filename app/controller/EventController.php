@@ -28,14 +28,27 @@ class EventController {
         $view->render($data); //put [] as argument when no data in view
     }
 
+    /*
+        This endpoint is toggle. 
+    */
     public static function register($session_id)
     {
         $session = (new Session)->getById($session_id);
-
-        $session->register($_SESSION['user']);
+        $message = 'Succesfully registered for ' . $session->name . ' at ' . $session->startdate;
+        try{
+            $session->register($_SESSION['user']);
+        }
+        catch(PDOException $pdo) {
+            $session->unregister($_SESSION['user']); 
+            $message = 'Succesfully removed from ' . $session->name;
+        }
 
         $view = new View('app/view/pages/event/success.php');
 
-        $view->render($session);
+        $data = [
+            'message' => $message,
+            'session' => $session
+        ];
+        $view->render($data);
     }
 }

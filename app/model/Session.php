@@ -55,19 +55,32 @@ class Session extends Model{
 
     public function register(Attendee $user)
     {
-        //Relate user to certain session
-        DB::query("INSERT INTO attendee_session('session', 'attendee') VALUES (:sess_id, :attendee_id)", [
+            //Relate user to certain session
+            DB::query("INSERT INTO attendee_session(session, attendee) VALUES (:sess_id, :attendee_id)", [
+                'sess_id' => $this->idsession,
+                'attendee_id' => $user->id
+            ]);
+        
+
+            //Relate user to certain event
+            DB::query("INSERT INTO attendee_event(event, attendee, paid) VALUES (:event_id, :attendee_id, :paid);", [
+                'event_id' => $this->event->idevent,
+                'attendee_id' => $user->id,
+                'paid' => 1
+            ]);
+    }
+
+    public function unregister(Attendee $user)
+    {
+        //remove relation
+        DB::query("DELETE FROM attendee_session WHERE attendee_session.session = :sess_id AND attendee_session.attendee = :attendee_id;", [
             'sess_id' => $this->idsession,
             'attendee_id' => $user->id
         ]);
-
-        //Relate user to certain event
-        DB::query("INSERT INTO attendee_event('event', 'attendee', 'paid') VALUES (:event_id, :attendee_id, :paid)", [
-            'event_id' => $this->event->id,
+        //remove relation
+        DB::query("DELETE FROM attendee_event WHERE attendee_event.event = :event_id AND attendee_event.attendee = :attendee_id;", [
+            'event_id' => $this->event->idevent,
             'attendee_id' => $user->id,
-            'paid' => 1
         ]);
-
-        
     }
 }
