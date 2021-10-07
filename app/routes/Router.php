@@ -17,7 +17,7 @@ class Router {
         //uncomment line below to set yourself as admin
         //$_SESSION['user']['role'] = 'admin';
         $slug = explode('/',self::getSlug());
-        
+
         if('' == $slug[0]) {
             HomeController::index();
         }
@@ -71,7 +71,12 @@ class Router {
                     EventController::index(); // /events
                 case 2:
                     self::protectRoute($role = null, 'Only logged in users can view sessions.');//only registered users can view sessions
-                    EventController::single($slug[1]); // /events/{id}
+                    EventController::single($slug[1]); // /events/{event_id}
+                case 4:
+                    if($slug[2] == 'register'){
+                        self::protectRoute($role = null, 'Only logged in users can view sessions.');//only registered users can view sessions
+                        EventController::register($slug[3]); // /events/{event_id}/register/{session_id}
+                    }
             }
         }
 

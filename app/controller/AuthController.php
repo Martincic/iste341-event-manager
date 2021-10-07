@@ -60,7 +60,10 @@ class AuthController extends Controller{
         if(!$username->isSuccess() || !$password->isSuccess()) self::abort('login', ['errors'=> $errors]);
         
         $user = (new Attendee)->authorize($username->value, $password->value);
-        $_SESSION['user'] = $user;
+        $_SESSION['user'] = $user ? $user : null;
+        
+        if(gettype($user) == 'boolean') self::abort('login', ['message' => 'No user found with these credentials.']);
+
         header('Location: '.BASE_URL . '/');
         die();
     }
@@ -105,7 +108,7 @@ class AuthController extends Controller{
         
         $user = (new Attendee)->create($username->value, $password->value) ?? null;
 
-        $_SESSION['user'] = $user;
+        $_SESSION['user'] = $user ? $user : null;
         header('Location: '.BASE_URL . '/');
         die();
     }

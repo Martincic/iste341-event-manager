@@ -27,7 +27,7 @@ $currentAttendees = count($event->attendees());
                 <p class='pt-5 mt-3'>Number of visitors attending: <?php echo $currentAttendees . " / " . $event->numberallowed ?></p>    
 
                 <!-- REGISTER BTN -->
-                <a href="events/<?php echo $event->idevent; //event_id?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Register</span></button></a>
+                <a href="events/<?php echo $event->idevent; //event_id?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Sessions</span></button></a>
             </div>
         </div>   
     </div>

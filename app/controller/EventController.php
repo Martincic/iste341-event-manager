@@ -27,4 +27,15 @@ class EventController {
         ];
         $view->render($data); //put [] as argument when no data in view
     }
+
+    public static function register($session_id)
+    {
+        $session = (new Session)->getById($session_id);
+
+        $session->register($_SESSION['user']);
+
+        $view = new View('app/view/pages/event/success.php');
+
+        $view->render($session);
+    }
 }

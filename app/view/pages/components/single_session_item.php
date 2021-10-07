@@ -32,7 +32,7 @@ $currentAttendees = count($session->attendees());
                 <p class='pt-5 mt-3'>Number of visitors attending: <?php echo $currentAttendees . " / " . $session->numberallowed ?></p>    
 
                 <!-- REGISTER BTN -->
-                <a href="events/<?php echo $session->idevent; //event_id?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Register</span></button></a>
+                <a href="<?php echo $data['event']->idevent . '/register/' . $session->idsession?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Register</span></button></a>
             </div>
         </div>   
     </div>

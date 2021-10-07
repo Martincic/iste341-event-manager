@@ -6,7 +6,6 @@ class Attendee extends Model{
     public $name;
     public $password;
     public $role;
-    public $test;
 
     const USER_REGISTER_DEFAULT_ROLE = 1;
 

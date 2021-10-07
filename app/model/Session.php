@@ -10,7 +10,7 @@ class Session extends Model{
     public $event;
 
     public function getById($id) {
-        $session_obj = DB::queryOne('SELECT * FROM "session" WHERE idsession = :id', ['id' => $id], Session::class);
+        $session_obj = DB::queryOne('SELECT * FROM session WHERE idsession = :id', ['id' => $id], Session::class);
         //get venue obj
         $event_id = $session_obj->event;
         $event = new Event();
@@ -53,4 +53,21 @@ class Session extends Model{
         return  DB::queryAll('SELECT * from attendee_session WHERE session = :id', ['id' => $this->idsession], AttendeeSession::class);
     }
 
+    public function register(Attendee $user)
+    {
+        //Relate user to certain session
+        DB::query("INSERT INTO attendee_session('session', 'attendee') VALUES (:sess_id, :attendee_id)", [
+            'sess_id' => $this->idsession,
+            'attendee_id' => $user->id
+        ]);
+
+        //Relate user to certain event
+        DB::query("INSERT INTO attendee_event('event', 'attendee', 'paid') VALUES (:event_id, :attendee_id, :paid)", [
+            'event_id' => $this->event->id,
+            'attendee_id' => $user->id,
+            'paid' => 1
+        ]);
+
+        
+    }
 }
