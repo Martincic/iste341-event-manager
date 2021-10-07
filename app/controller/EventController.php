@@ -51,4 +51,51 @@ class EventController {
         ];
         $view->render($data);
     }
+
+    public static function registrations() {
+        $view = new View('app/view/pages/registrations.php');
+        // get user id
+        $attendee = $_SESSION['user']->id;
+
+        //get event ids connected to user
+        // $event_ids = (new AttendeeEvent)->getById($attendee);
+
+        // //get ALL sessions for this attendee
+        // $session_ids = (new AttendeeSession)->getById($attendee);
+
+        $events = [];
+        $sessions = [];
+
+        // //get data and filter sessions if any
+        // foreach($event_ids->event as $id){
+        //     $event =  (new Event)->getById($id);
+        //     array_push( $events, $event);
+
+        //     //look for sessions 
+        //     if(!empty($session_ids) > 0){ //there is a registered session
+        //     //check for registered sessions with this event matching 
+
+        //         $temp = $event->sessions();//get all sess
+        //         //if session id matches session_attendee_id 
+        //         if(!empty($temp)){
+        //             for($i = 0; $i < count($temp)); $i++){
+        //                 for($j = 0; $j < count($session_id)); $j++){
+
+        //                     if($temp[$i]->idsession == $session_id[$j]->session ){
+        //                         array_push($sessions, $temp[$i]);
+        //                     }
+
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+        $data = [
+            'events' => $events,
+            'sessions' => $sessions
+        ];
+
+        $view->render($data); //put [] as argument when no data in view
+    }
 }
