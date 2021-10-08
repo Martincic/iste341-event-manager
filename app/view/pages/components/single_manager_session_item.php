@@ -11,12 +11,12 @@ $currentAttendees = count($session->attendees());
     <div class="container">
 
         <!-- NAME -->
-        <form action="<?php echo 'manage/'. $session->idsession . '/editSession' . '/Name'?>" method="post">
+        <form action="<?php echo 'sessions/'. $session->idsession . '/editSession' . '/Name'?>" method="post">
                 <div class="row">
-                    <div class="col-md-4 pt-2">
+                    <div class="col-md-4">
                         <div class="h3 pb-4">Name: <?php echo $session->name ?></div>
                     </div>
-                    <div class="col-md-4 pl-5 ml-5 pt-2">
+                    <div class="col-md-4 pl-5 ml-5">
                         <input type="text" name="Name" value=""></input><br>
                     </div>
                     <!-- EDIT BTN -->
@@ -27,7 +27,7 @@ $currentAttendees = count($session->attendees());
         </form>
 
         <!-- DATE START -->
-        <form action="<?php echo 'manage/'. $session->idsession . '/editSession' . '/DateStart'?>" method="post">
+        <form action="<?php echo 'sessions/'. $session->idsession . '/editSession' . '/DateStart'?>" method="post">
                 <div class="row pt-5">
                     <div class="col-md-4">
                         <p class=''>Starts on: <?php echo $session->datestart ?></p>
@@ -45,7 +45,7 @@ $currentAttendees = count($session->attendees());
         </form>
                         
         <!-- DURATION -->
-        <form action="<?php echo 'manage/'. $session->idsession . '/editSession' . '/DateEnd'?>" method="post">
+        <form action="<?php echo 'sessions/'. $session->idsession . '/editSession' . '/DateEnd'?>" method="post">
                 <div class="row pt-2">
                     <div class="col-md-4">
                         <p class=''>Ends on: <?php echo $session->dateend ?></p>
@@ -60,7 +60,7 @@ $currentAttendees = count($session->attendees());
                 </div>
         </form>
 
-        <form action="<?php echo 'manage/'. $session->idsession . '/editSession' . '/NumberAllowed'?>" method="post">
+        <form action="<?php echo 'sessions/'. $session->idsession . '/editSession' . '/NumberAllowed'?>" method="post">
                 <!-- ATTENDEES ALLOWED -->
                 <div class="row pt-5">
                     <div class="col-md-4">
@@ -80,11 +80,11 @@ $currentAttendees = count($session->attendees());
                 <div class="row pt-5">
                 
                     <div class="col-md-6">
-                        <a href="manage/<?php echo $session->idsession . '/sessions';?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Sessions</span></button></a>
+                        <a href=""><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Attendees</span></button></a>
                     </div>  
                 
                 
-                <form action="<?php echo 'manage/'. $session->idsession . '/deleteSession';?>" method="post">
+                <form action="<?php echo 'sessions/'. $session->idsession . '/deleteSession';?>" method="post">
                     <!-- DELETE BTN -->
                     <div class="col-md-6">
                         <button type="submit" class="btn-blue mt-4"><span class="btn-blue-span">Delete</span></button>
