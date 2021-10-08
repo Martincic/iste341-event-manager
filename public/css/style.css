@@ -133,3 +133,8 @@ nav ul{
   .btn-blue:hover .btn-blue-span {
     background: transparent;
   }
+
+  .edit-btn {
+    padding: 1px;
+    width: 4em;
+  }

@@ -45,8 +45,24 @@
                         }
                     ?>
                 </div>
-                <button type="submit" class="btn btn-secondary">Submit</button>
+                <button type="submit" class="btn-blue mt-4"><span class="btn-blue-span">Submit</span></button>
             </form>
+        </div>
+    </div>
+    <div class="row mt-5 text-center">
+        <div class="col-md-12">
+            <h5>Already have an account? Go back:</h5>
+        </div>
+    </div>
+    <div class="row mt-4 text-center">
+        <div class="col-md-12">
+            <?php 
+            $url = BASE_URL;
+            echo "
+                <a href='".$url."/login.php'>
+                    <button class='btn-blue'><span class='btn-blue-span'>Log in</span></button>
+                </a>";
+            ?>
         </div>
     </div>
 </div>

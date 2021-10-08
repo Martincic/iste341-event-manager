@@ -35,7 +35,7 @@ class Router {
         }
 
         //To access any routes below this line, user needs to be attendee
-        self::protectRoute($role = null, 'Please log in');
+        self::protectRoute($role = null, '');
 
         if('' == $slug[0]) {
             HomeController::index();
@@ -88,8 +88,17 @@ class Router {
         self::protectRoute('2', 'Manager role required.');
 
         if('manage' == $slug[0]) {
-            ManagerController::eventList();
+            switch(count($slug)) {
+                case 1:
+                    ManagerController::eventList(); // /events
+                case 2:
+                   
+                    ManagerController::sessionList($slug[1]); // /events/{event_id}
+            }
+            
+            
         }
+
 
         
         //default if no routes match
