@@ -92,8 +92,18 @@ class Router {
                 case 1:
                     ManagerController::eventList(); // /events
                 case 2:
-                   
-                    ManagerController::sessionList($slug[1]); // /events/{event_id}
+                    if($slug[3] == 'sessions')
+                   //TODO: FIX
+                    ManagerController::sessionList($slug[1]); // /manage/{event_id}/sessions     
+                case 4:
+                    if($slug[2] == 'editEvent'){
+                        ManagerController::editEvent($slug[1], $slug[3]); // /manage/{event_id}/editEvent/{type}
+                    }       
+                case 5:
+                    if($slug[2] == 'deleteEvent'){
+                        ManagerController::editEvent($slug[1], $slug[3]); // /manage/{event_id}/deleteEvent
+                    }                  
+                        
             }
             
             

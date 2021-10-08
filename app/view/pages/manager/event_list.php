@@ -5,7 +5,7 @@
             <p class="text-center">Scroll down to view events</p>
         </div>
         <div class="col-md-12 text-center">
-        <img src="public/img/fast-forward.png" width="32" height="60" class="downIcon" />
+        <!-- <img src="public/img/fast-forward.png" width="32" height="60" class="downIcon" /> -->
 
         </div>
     </div>

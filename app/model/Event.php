@@ -77,5 +77,12 @@ class Event extends Model{
     public function attendees(){
         return  DB::queryAll('SELECT * from attendee_event WHERE event = :id', ['id' => $this->idevent], AttendeeEvent::class);
     }
-      
+
+    public function setName($name){
+        DB::query(
+            'UPDATE event SET name = :name WHERE idevent = :id', ['name' => $name, 'idevent' => $this->idevent]
+        );
+        return self::getAll();
+    }
+
 }

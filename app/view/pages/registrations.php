@@ -1,6 +1,6 @@
 <?php include 'app/view/inc/navbar.php';?>
-<div class="container hero">
-    <div class="row">
+<div class="container">
+    <div class="row hero">
         <div class="col-md-12">
             <h1>REGISTRATIONS</h1>
             <p class="text-center">Scroll down to view your registrations</p>

@@ -21,9 +21,9 @@
         <div class="swiper-wrapper">
             <?php 
 
-                foreach ($data['session'] as $session) {
-                    include(__DIR__.'/../components/single_manager_session_item.php');
-                }
+                // foreach ($data['session'] as $session) {
+                //     include(__DIR__.'/../components/single_manager_session_item.php');
+                // }
             ?>
         </div>
         <div class="swiper-pagination"></div>
