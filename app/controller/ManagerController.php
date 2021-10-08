@@ -3,7 +3,7 @@
 /**
  *  ManagerController handles routes for homepage
  */
-class ManagerController {
+class ManagerController extends Controller {
 
     /**
      * Handles incoming requests. A query parameter 'page' is used to identify 
@@ -28,21 +28,17 @@ class ManagerController {
     public static function editEvent($event_id, $type){
         $event = (new Event)->getById($event_id);
 
-        
         $method = 'set' . $type; //example setName()
-
-        if(isset($_POST[$type]) ){ //$_POST['Name']
-            //TU NESTO STEKA metoda getName() za testiranje
-            //update and refresh $events
-            $events = $event->$method($_GET[$type]);
-        }else {
-            $events = (new Event)->getAll();
-        }
-
-        //back to event list
-        $view = new View('app/view/pages/manager/event_list.php');
-
-        $view->render($events); //put [] as argument when no data in view
+        $event->$method($_POST[$type]);
+        
+        // if(isset($_POST[$type]) ){ //$_POST['Name']
+        //     //TU NESTO STEKA metoda getName() za testiranje
+        //     //update and refresh $events
+        //     $events = $event->$method($_GET[$type]);
+        // }else {
+        //     $events = (new Event)->getAll();
+        // }
+        self::redirectBack();
     }
 
     

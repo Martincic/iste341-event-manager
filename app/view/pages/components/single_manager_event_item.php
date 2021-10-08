@@ -17,7 +17,7 @@ $currentAttendees = count($event->attendees());
                         <div class="h3 pb-3">Name: <?php echo $event->name ?></div>
                     </div>
                     <div class="col-md-4 pl-5 ml-5 pt-2">
-                        <input type="text" name="Name" value=""></input><br>
+                        <input type="text" name="Name" value="<?php echo $event->name ?>"></input><br>
                     </div>
                     <!-- EDIT BTN -->
                     <div class="col-md-1 pt-2">
@@ -33,7 +33,7 @@ $currentAttendees = count($event->attendees());
                         <p class=''>Starts on: <?php echo $event->datestart ?></p>
                     </div>
                     <div class="col-md-4 pl-5 ml-5">
-                        <input type="text" name="DateStart" value=""></input><br>
+                        <input type="text" name="DateStart" value="<?php echo $event->datestart ?>"></input><br>
                     </div>
                     <!-- EDIT BTN -->
                     <div class="col-md-1">
@@ -51,7 +51,7 @@ $currentAttendees = count($event->attendees());
                         <p class=''>Ends on: <?php echo $event->dateend ?></p>
                     </div>
                     <div class="col-md-4 pl-5 ml-5">
-                        <input type="text" name="DateEnd" value=""></input><br>
+                        <input type="text" name="DateEnd" value="<?php echo $event->dateend ?>"></input><br>
                     </div>
                     <!-- EDIT BTN -->
                     <div class="col-md-1">
@@ -67,7 +67,7 @@ $currentAttendees = count($event->attendees());
                         <p class=''>Max number of visitors: <?php echo $currentAttendees . " / " . $event->numberallowed ?></p>    
                     </div>
                     <div class="col-md-4 pl-5 ml-5">
-                        <input type="text" name="NumberAllowed" value=""></input><br>
+                        <input type="text" name="NumberAllowed" value="<?php echo $event->numberallowed ?>"></input><br>
                     </div>
                     
                     <!-- EDIT BTN -->

@@ -52,7 +52,6 @@ class Event extends Model{
 
     public function delete($id) {     
         DB::query('DELETE * FROM "event" WHERE idevent = :id', ['id' => $id]);
-        return $this->getAll();
     }
 
     public function __toString() {
@@ -77,11 +76,19 @@ class Event extends Model{
         return  DB::queryAll('SELECT * from attendee_event WHERE event = :id', ['id' => $this->idevent], AttendeeEvent::class);
     }
 
-    public function setName($name){
-        DB::query(
-            'UPDATE event SET name = :name WHERE idevent = :id', ['name' => $name, 'idevent' => $this->idevent]
-        );
-        return self::getAll();
+    public function setName($value){
+        DB::query('UPDATE event SET name = :name WHERE idevent = :id', ['name' => $value, 'id' => $this->idevent]);
+    }
+    
+    public function setDateStart($value){
+        DB::query('UPDATE event SET datestart = :datestart WHERE idevent = :id', ['datestart' => $value, 'id' => $this->idevent]);
     }
 
+    public function setDateEnd($value){
+        DB::query('UPDATE event SET dateend = :dateend WHERE idevent = :id', ['dateend' => $value, 'id' => $this->idevent]);
+    }
+
+    public function setNumberAllowed($value){
+        DB::query('UPDATE event SET numberallowed = :numberallowed WHERE idevent = :id', ['numberallowed' => $value, 'id' => $this->idevent]);
+    }
 }
