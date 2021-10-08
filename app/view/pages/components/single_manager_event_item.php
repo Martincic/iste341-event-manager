@@ -80,11 +80,11 @@ $currentAttendees = count($event->attendees());
                 <div class="row pt-5">
                 
                     <div class="col-md-6">
-                        <a href="manage/<?php echo $event->idevent . '/sessions';?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Sessions</span></button></a>
+                        <a href="manage/<?php echo $event->idevent;?>/sessions"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Sessions</span></button></a>
                     </div>  
                 
                 
-                <form action="<?php echo 'manage/'. $event->idevent . '/deleteEvent';?>" method="post">
+                <form action="manage/<?php echo $event->idevent;?>/deleteEvent" method="post">
                     <!-- DELETE BTN -->
                     <div class="col-md-6">
                         <button type="submit" class="btn-blue mt-4"><span class="btn-blue-span">Delete</span></button>

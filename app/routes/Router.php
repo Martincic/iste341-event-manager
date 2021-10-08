@@ -91,18 +91,26 @@ class Router {
             switch(count($slug)) {
                 case 1:
                     ManagerController::eventList(); // /events
-                case 2:
-                    if($slug[3] == 'sessions')
-                   //TODO: FIX
+                case 3:
+                    if($slug[2] == 'sessions')
+                    
                     ManagerController::sessionList($slug[1]); // /manage/{event_id}/sessions     
                 case 4:
                     if($slug[2] == 'editEvent'){
                         ManagerController::editEvent($slug[1], $slug[3]); // /manage/{event_id}/editEvent/{type}
                     }       
-                case 5:
-                    if($slug[2] == 'deleteEvent'){
+
+                    else if($slug[2] == 'deleteEvent'){
                         ManagerController::editEvent($slug[1], $slug[3]); // /manage/{event_id}/deleteEvent
-                    }                  
+                    }      
+                case 6:
+                    
+                    if($slug[4] == 'editSession'){
+                        ManagerController::editSession($slug[3], $slug[5]); // manage/{event_id}/sessions/{session_id}/editSession/{type}
+
+                    }else if($slug[4] == 'deleteSession'){
+                        ManagerController::deleteSession($slug[3], $slug[5]); // manage/{event_id}/sessions/{session_id}/deleteSession/{type}
+                    }    
                         
             }
             
