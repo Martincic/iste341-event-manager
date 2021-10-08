@@ -108,7 +108,7 @@ nav ul{
     color: #ffffff;
     height: 50px;
     font-size: 1em;
-    padding: 3px;
+    padding: 2px;
     text-decoration: none;
     width: 7em;
     z-index: 2;
@@ -136,5 +136,7 @@ nav ul{
 
   .edit-btn {
     padding: 1px;
-    width: 4em;
+    width: 3em;
+    height: 35px;
+    font-size: 0.9em;
   }

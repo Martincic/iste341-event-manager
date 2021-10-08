@@ -13,14 +13,14 @@ $currentAttendees = count($event->attendees());
         <!-- NAME -->
         <form action="<?php echo 'manage/'. $event->idevent . '/editEvent' . '/Name';?>" method="post">
                 <div class="row">
-                    <div class="col-md-4 pt-2">
-                        <div class="h3 pb-4">Name: <?php echo $event->name ?></div>
+                    <div class="col-md-4">
+                        <div class="h3 pb-3">Name: <?php echo $event->name ?></div>
                     </div>
                     <div class="col-md-4 pl-5 ml-5 pt-2">
                         <input type="text" name="Name" value=""></input><br>
                     </div>
                     <!-- EDIT BTN -->
-                    <div class="col-md-1">
+                    <div class="col-md-1 pt-2">
                         <button type="submit" class="btn-blue edit-btn"><span class="btn-blue-span">Edit</span></button>
                     </div>  
                 </div>
@@ -29,10 +29,10 @@ $currentAttendees = count($event->attendees());
         <!-- DATE START -->
         <form action="<?php echo 'manage/'. $event->idevent . '/editEvent' . '/DateStart';?>" method="post">
                 <div class="row pt-5">
-                    <div class="col-md-4 pt-2">
+                    <div class="col-md-4">
                         <p class=''>Starts on: <?php echo $event->datestart ?></p>
                     </div>
-                    <div class="col-md-4 pl-5 ml-5 pt-2">
+                    <div class="col-md-4 pl-5 ml-5">
                         <input type="text" name="DateStart" value=""></input><br>
                     </div>
                     <!-- EDIT BTN -->
@@ -46,11 +46,11 @@ $currentAttendees = count($event->attendees());
                         
         <!-- DURATION -->
         <form action="<?php echo 'manage/'. $event->idevent . '/editEvent' . '/DateEnd';?>" method="post">
-                <div class="row pt-2">
-                    <div class="col-md-4 pt-2">
+                <div class="row pt-3">
+                    <div class="col-md-4">
                         <p class=''>Ends on: <?php echo $event->dateend ?></p>
                     </div>
-                    <div class="col-md-4 pl-5 ml-5 pt-2">
+                    <div class="col-md-4 pl-5 ml-5">
                         <input type="text" name="DateEnd" value=""></input><br>
                     </div>
                     <!-- EDIT BTN -->
@@ -63,10 +63,10 @@ $currentAttendees = count($event->attendees());
         <form action="<?php echo 'manage/'. $event->idevent . '/editEvent' . '/NumberAllowed';?>" method="post">
                 <!-- ATTENDEES ALLOWED -->
                 <div class="row pt-5">
-                    <div class="col-md-4 pt-2">
+                    <div class="col-md-4">
                         <p class=''>Max number of visitors: <?php echo $currentAttendees . " / " . $event->numberallowed ?></p>    
                     </div>
-                    <div class="col-md-4 pl-5 ml-5 pt-2">
+                    <div class="col-md-4 pl-5 ml-5">
                         <input type="text" name="NumberAllowed" value=""></input><br>
                     </div>
                     

@@ -29,10 +29,10 @@ $currentAttendees = count($session->attendees());
         <!-- DATE START -->
         <form action="<?php echo 'manage/'. $session->idsession . '/editSession' . '/DateStart'?>" method="post">
                 <div class="row pt-5">
-                    <div class="col-md-4 pt-2">
+                    <div class="col-md-4">
                         <p class=''>Starts on: <?php echo $session->datestart ?></p>
                     </div>
-                    <div class="col-md-4 pl-5 ml-5 pt-2">
+                    <div class="col-md-4 pl-5 ml-5">
                         <input type="text" name="DateStart" value=""></input><br>
                     </div>
                     <!-- EDIT BTN -->
@@ -47,10 +47,10 @@ $currentAttendees = count($session->attendees());
         <!-- DURATION -->
         <form action="<?php echo 'manage/'. $session->idsession . '/editSession' . '/DateEnd'?>" method="post">
                 <div class="row pt-2">
-                    <div class="col-md-4 pt-2">
+                    <div class="col-md-4">
                         <p class=''>Ends on: <?php echo $session->dateend ?></p>
                     </div>
-                    <div class="col-md-4 pl-5 ml-5 pt-2">
+                    <div class="col-md-4 pl-5 ml-5">
                         <input type="text" name="DateEnd" value=""></input><br>
                     </div>
                     <!-- EDIT BTN -->
@@ -63,10 +63,10 @@ $currentAttendees = count($session->attendees());
         <form action="<?php echo 'manage/'. $session->idsession . '/editSession' . '/NumberAllowed'?>" method="post">
                 <!-- ATTENDEES ALLOWED -->
                 <div class="row pt-5">
-                    <div class="col-md-4 pt-2">
+                    <div class="col-md-4">
                         <p class=''>Max number of visitors: <?php echo $currentAttendees . " / " . $session->numberallowed ?></p>    
                     </div>
-                    <div class="col-md-4 pl-5 ml-5 pt-2">
+                    <div class="col-md-4 pl-5 ml-5">
                         <input type="text" name="NumberAllowed" value=""></input><br>
                     </div>
                     
