@@ -12,19 +12,17 @@ class Venue extends Model{
     }
 
     public function getAll() {
-        return DB::queryAll('SELECT * FROM "venue" WHERE 1', [], Venue::class);
+        return DB::queryAll('SELECT * FROM venue WHERE 1', [], Venue::class);
     }
 
-    public function add($data) {
-        DB::query('INSERT INTO "venue"("idevent","name", "capacity")
-                    VALUES(:idvenue, :"name", :capacity)',
+    public static function add($data) {
+        DB::query('INSERT INTO venue(name, capacity)
+                    VALUES(:name, :capacity)',
                     [
-                        "idvenue"=>$data["idvenue"],
                         "name"=>$data["name"],
                         "capacity"=>$data["capacity"]
                     ]
         );
-        return $this->getById($data["idvenue"]);
     }
 
     public function delete($id) {     

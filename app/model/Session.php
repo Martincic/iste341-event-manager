@@ -39,24 +39,21 @@ class Session extends Model{
             ], Session::class);
     }
 
-    public function add($data) {
-        DB::query('INSERT INTO "session"("idsession","name", "datestart". "dateend", "numberallowed", "event")
-                    VALUES(:idsession, :"name", :datestart, :dateend, :numberallowed, :"event")',
+    public static function add($data) {
+        DB::query('INSERT INTO session(name, startdate, enddate, numberallowed, event)
+                    VALUES(:name, :startdate, :enddate, :numberallowed, :event)',
                     [
-                        "idesssion"=>$data["idsession"],
-                        "name"=>$data["name"],
-                        "datestart"=>$data["datestart"],
-                        "dateend"=>$data["dateend"],
-                        "numberallowed"=>$data["numberallowed"],
-                        "event"=>$data["event"]
+                        "name" => $data["name"],
+                        "startdate" => $data["datestart"],
+                        "enddate" => $data["dateend"],
+                        "numberallowed" => $data["numberallowed"],
+                        "event" => $data["event"]
                     ]
         );
-        return $this->getById($data["idsession"]);
     }
 
     public function delete($id) {     
-        DB::query('DELETE * FROM "session" WHERE idsession = :id', ['id' => $id]);
-        return $this->getAll();
+        DB::query('DELETE FROM session WHERE idsession = :id', ['id' => $id]);
         
     }
 
@@ -107,5 +104,23 @@ class Session extends Model{
                         'id' => $user->id
                     ],
                     Session::class);
+    }
+
+    public function setName($value){
+        DB::query('UPDATE session SET name = :name WHERE idsession = :id', ['name' => $value, 'id' => $this->idsession]);
+    }
+    
+    public function setDateStart($value){
+        $value = date("Y-m-d H:i:s", strtotime($value));
+        DB::query('UPDATE session SET startdate = :datestart WHERE idsession = :id', ['datestart' => $value, 'id' => $this->idsession]);
+    }
+
+    public function setDateEnd($value){
+        $value = date("Y-m-d H:i:s", strtotime($value));
+        DB::query('UPDATE session SET enddate = :dateend WHERE idsession = :id', ['dateend' => $value, 'id' => $this->idsession]);
+    }
+
+    public function setNumberAllowed($value){
+        DB::query('UPDATE session SET numberallowed = :numberallowed WHERE idsession = :id', ['numberallowed' => $value, 'id' => $this->idsession]);
     }
 }

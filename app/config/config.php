@@ -14,4 +14,4 @@ define('URL_ROOT', 'http://' . $_SERVER['SERVER_NAME'] . pathinfo($_SERVER['SCRI
 
 define('TITLE', 'Event manager application');
 
-define('BASE_URL', 'http://localhost/iste341-event-manager');
+define('BASE_URL', 'https://988a-88-207-80-44.ngrok.io/iste341-event-manager');

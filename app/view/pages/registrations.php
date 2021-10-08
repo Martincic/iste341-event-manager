@@ -27,9 +27,12 @@
 
         }else{
             echo '
+            <div class="">
             <p>No registrations found!</p>
             <p>Register for sessions or sessions using:</p>
-            <p><a href="' . BASE_URL .'/sessions">Link to all sessions</a></p>';
+            <p><a href="' . BASE_URL .'/sessions">Link to all sessions</a></p>
+            </div>
+            ';
         }
         ?>
         </div>

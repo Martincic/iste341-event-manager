@@ -59,7 +59,7 @@ class AuthController extends Controller{
 
         if(!$username->isSuccess() || !$password->isSuccess()) self::abort('login', ['errors'=> $errors]);
         $pass = hash('sha256', $password->value);
-        
+
         $user = (new Attendee)->authorize($username->value, $pass);
         $_SESSION['user'] = $user ? $user : null;
         

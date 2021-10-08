@@ -21,37 +21,41 @@ class Event extends Model{
     }
 
     public function getAll() {
-        return DB::queryAll('SELECT * FROM event WHERE 1', [], Event::class);
+        return DB::queryAll('SELECT idevent,
+        (SELECT name FROM venue WHERE venue.idvenue = event.venue) as "venue",
+        name,
+        datestart,
+        dateend,
+        numberallowed
+         FROM event WHERE 1', [], Event::class);
     }
 
-    public function add($data) {
+    public static function add($data) {
         //get user/manager
         $manager_id = $_SESSION['user']->id;
         //create event
-        $event_id = DB::queryAndReturnID('INSERT INTO "event"("idevent","name", "datestart". "dateend", "numberallowed", "venue")
-                    VALUES(:idevent, :"name", :datestart, :dateend, :numberallowed, :"venue")',
+        $event_id = DB::query('INSERT INTO event(name, datestart, dateend, numberallowed, venue)
+                    VALUES(:name, :datestart, :dateend, :numberallowed, :venue)',
                     [
-                        "idevent"=>$data["idevent"],
-                        "name"=>$data["name"],
-                        "datestart"=>$data["datestart"],
-                        "dateend"=>$data["dateend"],
-                        "numberallowed"=>$data["numberallowed"],
-                        "venue"=>$data["venue"]
+                        'name'=>$data['name'],
+                        'datestart'=>date("Y-m-d H:i:s", strtotime($data['datestart'])),
+                        'dateend'=>date("Y-m-d H:i:s", strtotime($data['dateend'])),
+                        'numberallowed'=>$data['numberallowed'],
+                        'venue'=>$data['venue']
                     ]
         );
-
-        //relate event and manager (ManagerEvents)
-        DB::query('INSERT  INTO manager_event values(:event_id, :manager_id)',
-                    [
-                        'event_id' => $event_id,
-                        'manager_id' => $manager_id
-                    ]
-        );
-        return $this->getById($data["idevent"]);
     }
 
     public function delete($id) {     
-        DB::query('DELETE * FROM "event" WHERE idevent = :id', ['id' => $id]);
+        DB::query('DELETE FROM event WHERE event.idevent = :id', ['id' => $id]);
+        DB::query('DELETE FROM session WHERE event = :id', ['id' => $id]);
+        DB::query('DELETE FROM attendee_event WHERE event = :id', ['id' => $id]);
+        DB::query('DELETE FROM manager_event WHERE event = :id', ['id' => $id]);
+
+        DB::query('DELETE FROM attendee_session WHERE attendee_session.session IN 
+            (SELECT session.idsession from session WHERE session.event = :id)', [
+            'id' => $id
+        ]);
     }
 
     public function __toString() {
@@ -81,14 +85,20 @@ class Event extends Model{
     }
     
     public function setDateStart($value){
+        $value = date("Y-m-d H:i:s", strtotime($value));
         DB::query('UPDATE event SET datestart = :datestart WHERE idevent = :id', ['datestart' => $value, 'id' => $this->idevent]);
     }
 
     public function setDateEnd($value){
+        $value = date("Y-m-d H:i:s", strtotime($value));
         DB::query('UPDATE event SET dateend = :dateend WHERE idevent = :id', ['dateend' => $value, 'id' => $this->idevent]);
     }
 
     public function setNumberAllowed($value){
         DB::query('UPDATE event SET numberallowed = :numberallowed WHERE idevent = :id', ['numberallowed' => $value, 'id' => $this->idevent]);
+    }
+    
+    public function setVenue($value){
+        DB::query('UPDATE event SET venue = :venue WHERE idevent = :id', ['venue' => $value, 'id' => $this->idevent]);
     }
 }

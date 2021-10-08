@@ -17,7 +17,7 @@ class Router {
         //uncomment line below to set yourself as admin
         //$_SESSION['user']['role'] = 'admin';
         $slug = explode('/',self::getSlug());
-        
+
         if('login' == $slug[0]) {
             AuthController::login();
         }
@@ -35,7 +35,7 @@ class Router {
         }
 
         //To access any routes below this line, user needs to be attendee
-        self::protectRoute($role = null, '');
+        self::protectRoute('3', '');
 
         if('' == $slug[0]) {
             HomeController::index();
@@ -85,35 +85,36 @@ class Router {
 
         
         //To access any routes below this line, user needs to be a manager
-        self::protectRoute('2', 'Manager role required.');
+        self::protectRoute('2', 'Manager or admin role required.');
 
         if('manage' == $slug[0]) {
             switch(count($slug)) {
                 case 1:
                     ManagerController::eventList(); // /events
+                case 2:
+                    if($slug[1] == "createEvent") ManagerController::createEvent();
+                    if($slug[1] == "createVenue") ManagerController::createVenue();
+
                 case 3:
-                    if($slug[2] == 'sessions')
-                    
-                    ManagerController::sessionList($slug[1]); // /manage/{event_id}/sessions     
+                    if($slug[2] == 'sessions')ManagerController::sessionList($slug[1]); // /manage/{event_id}/sessions     
+                    else if($slug[2] == 'deleteEvent') ManagerController::deleteEvent($slug[1], $slug[2]); // /manage/{event_id}/deleteEvent
+                    else if($slug[2] == 'createSession')ManagerController::createSession($slug[1]); // /manage/{event_id}/createSession     
                 case 4:
                     if($slug[2] == 'editEvent'){
                         ManagerController::editEvent($slug[1], $slug[3]); // /manage/{event_id}/editEvent/{type}
                     }       
-
-                    else if($slug[2] == 'deleteEvent'){
-                        ManagerController::editEvent($slug[1], $slug[3]); // /manage/{event_id}/deleteEvent
-                    }      
-                case 6:
-                    
+                case 5:
                     if($slug[4] == 'editSession'){
                         ManagerController::editSession($slug[3], $slug[5]); // manage/{event_id}/sessions/{session_id}/editSession/{type}
 
-                    }else if($slug[4] == 'deleteSession'){
-                        ManagerController::deleteSession($slug[3], $slug[5]); // manage/{event_id}/sessions/{session_id}/deleteSession/{type}
-                    }    
-                        
+                    }
+                    if($slug[4] == 'deleteSession'){
+                        ManagerController::deleteSession($slug[3]); // manage/{event_id}/sessions/{session_id}/deleteSession/{type}
+                    }         
+                case 6:
+                    ManagerController::editSession($slug[3], $slug[5]); // manage/{event_id}/sessions/{session_id}/editSession/{type}    
             }
-            
+            // /manage/1/sessions/1/deleteSession
             
         }
 
@@ -130,21 +131,21 @@ class Router {
         look only if user is logged in. If there is parameter, it will check 
         if user is of that exact role.
     */
-    public static function protectRoute(string $role = null, string $message)
+    public static function protectRoute($role = 3, string $message)
     {
         //if user exists
         if(isset($_SESSION['user'])){
 
             //if role is not set, continue
             if(!$role) return;
-
             //if role is set and matches, continue
-            if($_SESSION['user']->role == $role) {
+            if($_SESSION['user']->role <= $role) {
                 return; //continue
             }
             else  {
-                if($_SESSION['user']->role == '3') return;
+                if($_SESSION['user']->role == 1) return;
                 self::abort($message);
+                die(5);
             }
         }
         else self::abort($message);

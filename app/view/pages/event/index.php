@@ -15,7 +15,7 @@
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             <?php 
-
+                // print_r($data);die();
                 foreach ($data as $event) {
                     include(__DIR__.'/../components/single_event_item.php');
                 }

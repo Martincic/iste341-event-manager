@@ -1,3 +1,4 @@
+<!-- $( ".selector" ).tabs( "option", "active", 2 ); -->
 <?php
 
 /**
@@ -12,13 +13,166 @@ class ManagerController extends Controller {
     public static function eventList() {
 
         $view = new View('app/view/pages/manager/event_list.php');
-        //ne radi
-        // $events = (new Event)->managedBy($_SESSION['user']->id);
 
-        //TEST getAll() dok ne fixamo managedBy()
         $events = (new Event)->getAll();
+        $venues = (new Venue)->getAll();
 
-        $view->render($events); //put [] as argument when no data in view
+        $data = [
+            'events' => $events,
+            'venues' => $venues
+        ];
+
+        $view->render($data); //put [] as argument when no data in view
+    }
+
+    /*
+        CREATE EVENT
+    */
+    public static function createEvent(){
+
+        $name = (new Filter)->data('Name', $_POST['Name'])
+                                ->sanitize_string()
+                                ->required()
+                                ->pattern('Alphanumeric')
+                                ->min(3)
+                                ->max(20);
+
+        $dateStart = (new Filter)->data('DateStart', $_POST['DateStart'])
+                                ->sanitize_string()
+                                ->required();
+
+        $dateEnd = (new Filter)->data('DateEnd', $_POST['DateEnd'])
+                                ->sanitize_string()
+                                ->required();
+
+        $numberAllowed = (new Filter)->data('NumberAllowed', $_POST['NumberAllowed'])
+                                ->sanitize_int()
+                                ->required()
+                                ->pattern('int');
+
+        $venue = (new Filter)->data('Venue', $_POST['venue'])
+                                ->sanitize_int()
+                                ->required()
+                                ->pattern('int');
+            
+        $errors = [
+            'name' => $name->getErrors(),
+            'dateStart' => $dateStart->getErrors(),
+            'dateEnd' => $dateEnd->getErrors(),
+            'numberAllowed' => $numberAllowed->getErrors(),
+            'venue' => $venue->getErrors()
+        ];
+        
+        $event = (new Event)->getall();
+        $venues = (new Venue)->getAll();
+        
+        if( !$name->isSuccess() ||
+        !$dateStart->isSuccess() ||
+        !$dateEnd->isSuccess() ||
+        !$numberAllowed->isSuccess() ||
+        !$venue->isSuccess() ) self::abort('manager/event_list', ['errors' => $errors, 'events' => $event, 'venues' => $venues]); 
+        
+        $data = [
+            "name"=> $name->value,
+            "datestart"=> $dateStart->value,
+            "dateend"=> $dateEnd->value,
+            "numberallowed"=> $numberAllowed->value,
+            "venue"=> $venue->value,
+        ];
+        Event::add($data);
+
+        self::redirectBack();
+    }
+
+
+    /*
+        CREATE SESSION 
+    */
+    public static function createSession($event_id){
+        
+        $name = (new Filter)->data('Name', $_POST['Name'])
+                                ->sanitize_string()
+                                ->required()
+                                ->pattern('Alphanumeric')
+                                ->min(3)
+                                ->max(50);
+
+        $dateStart = (new Filter)->data('DateStart', $_POST['DateStart'])
+                                ->sanitize_string()
+                                ->required();
+
+        $dateEnd = (new Filter)->data('DateEnd', $_POST['DateEnd'])
+                                ->sanitize_string()
+                                ->required();
+
+        $numberAllowed = (new Filter)->data('NumberAllowed', $_POST['NumberAllowed'])
+                                ->sanitize_int()
+                                ->required()
+                                ->pattern('int');
+            
+        $errors = [
+            'name' => $name->getErrors(),
+            'dateStart' => $dateStart->getErrors(),
+            'dateEnd' => $dateEnd->getErrors(),
+            'numberAllowed' => $numberAllowed->getErrors(),
+        ];
+
+        $event = (new Event)->getById($event_id);
+
+        $sessions = $event->sessions();
+
+        if( !$name->isSuccess() ||
+        !$dateStart->isSuccess() ||
+        !$dateEnd->isSuccess() ||
+        !$numberAllowed->isSuccess()) self::abort('manager/session_list', ['errors' => $errors, 'event' => $event, 'sessions' => $sessions]); 
+        
+        $data = [
+            "name"=> $name->value,
+            "datestart"=> $dateStart->value,
+            "dateend"=> $dateEnd->value,
+            "numberallowed"=> $numberAllowed->value,
+            'event' => $event_id
+        ];
+
+        Session::add($data);
+
+        self::redirectBack();
+    }
+
+    /*
+        CREATE VENUE 
+    */
+    public static function createVenue(){
+        $name = (new Filter)->data('Name', $_POST['Name'])
+                                ->sanitize_string()
+                                ->required()
+                                ->pattern('Alphanumeric')
+                                ->min(3)
+                                ->max(50);
+
+        $capacity = (new Filter)->data('Capacity', $_POST['Capacity'])
+                                ->sanitize_int()
+                                ->required()
+                                ->pattern('int');
+        $errors = [
+            'name' => $name->getErrors(),
+            'capacity' => $capacity->getErrors()
+        ];
+        
+        $venues = (new Venue)->getAll();    
+        $events = (new Event)->getall();
+        
+        if( !$name->isSuccess() ||
+        !$capacity->isSuccess()) self::abort('manager/event_list', ['errors' => $errors, 'venues' => $venues, 'events' => $events]); 
+    
+        
+        $data = [
+            "name"=> $name->value,
+            "capacity"=> $capacity->value
+        ];
+        Venue::add($data);
+
+        self::redirectBack();
     }
 
     
@@ -29,32 +183,21 @@ class ManagerController extends Controller {
         $event = (new Event)->getById($event_id);
 
         $method = 'set' . $type; //example setName()
+
         $event->$method($_POST[$type]);
         
-        // if(isset($_POST[$type]) ){ //$_POST['Name']
-        //     //TU NESTO STEKA metoda getName() za testiranje
-        //     //update and refresh $events
-        //     $events = $event->$method($_GET[$type]);
-        // }else {
-        //     $events = (new Event)->getAll();
-        // }
         self::redirectBack();
     }
 
-    
     /*
         DELETE EVENT
     */
-    public static function deleteEvent($event_id){
-        $event = (new Event)->getById($event_id);
-        
-        //update and refresh $events
-        $events = $event->delete($event_id);
-
+    public static function deleteEvent($event_id)
+    {
+        (new Event)->delete($event_id);
+    
         //back to event list
-        $view = new View('app/view/pages/manager/event_list.php');
-
-        $view->render($events); //put [] as argument when no data in view
+        self::redirectBack();
     }
 
     /*
@@ -71,6 +214,7 @@ class ManagerController extends Controller {
             'event' => $event,
             'sessions' => $sessions
         ];
+
         $view->render($data); //put [] as argument when no data in view
     }
 
@@ -78,12 +222,20 @@ class ManagerController extends Controller {
         DELETE SESSION
     */
     public static function deleteSession($session_id){
+        (new Session)->delete($session_id);
+
+        self::redirectBack();
     }
 
     /*
         EDIT SESSION
     */
-    public static function editSession($event_id, $type){
-    }
+    public static function editSession($session_id, $type){
+        $session = (new Session)->getById($session_id);
 
+        $method = 'set' . $type; //example setName()
+
+        $session->$method($_POST[$type]);
+        self::redirectBack();
+    }
 }

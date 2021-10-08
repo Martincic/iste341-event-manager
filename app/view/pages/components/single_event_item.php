@@ -15,7 +15,7 @@ $currentAttendees = count($event->attendees());
             <div class="col-md-6">
                 <!-- NAME -->
                 <div class="h3 pb-4"><?php echo $event->name ?></div>
-
+                <p>Venue: <?php echo $event->venue?> </p>
                 <!-- DATE START -->
                 <p class=''>Starts on: <?php echo $event->datestart ?></p>
 
@@ -27,6 +27,7 @@ $currentAttendees = count($event->attendees());
                 <p class='pt-5 mt-3'>Number of visitors attending: <?php echo $currentAttendees . " / " . $event->numberallowed ?></p>    
 
                 <!-- REGISTER BTN -->
+                
                 <a href="events/<?php echo $event->idevent; //event_id?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Sessions</span></button></a>
             </div>
         </div>   

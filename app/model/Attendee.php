@@ -7,7 +7,7 @@ class Attendee extends Model{
     public $password;
     public $role;
 
-    const USER_REGISTER_DEFAULT_ROLE = 1;
+    const USER_REGISTER_DEFAULT_ROLE = 3;
 
     public function authorize($username, $password) {        
         $user = DB::queryOne("SELECT * FROM attendee WHERE name = :username AND password = :password", [
