@@ -17,6 +17,7 @@ class Router {
         //uncomment line below to set yourself as admin
         //$_SESSION['user']['role'] = 'admin';
         $slug = explode('/',self::getSlug());
+        // var_dump($slug);die();
 
         if('login' == $slug[0]) {
             AuthController::login();
@@ -38,7 +39,7 @@ class Router {
         self::protectRoute('3', '');
 
         if('' == $slug[0]) {
-            HomeController::index();
+            HomeController::index(); 
         }
         
         if('index' == $slug[0]) {
@@ -163,6 +164,8 @@ class Router {
     {   
         $request = $_SERVER['REQUEST_URI']; 
         $request = explode('/', $request);
+        array_shift($request);
+        array_shift($request);
         array_shift($request);
         array_shift($request);
         return implode('/', $request);
