@@ -3,12 +3,13 @@
 class Session extends Model{
 
     public $idsession;
+    public $userattending;
     public $name;
     public $startdate;
     public $enddate;
     public $numberallowed;
     public $event;
-
+//
     public function getById($id) {
         $session_obj = DB::queryOne('SELECT * FROM session WHERE idsession = :id', ['id' => $id], Session::class);
         //get venue obj
@@ -20,7 +21,22 @@ class Session extends Model{
     }
 
     public function getAll($event_id) {
-        return DB::queryAll('SELECT * FROM session WHERE event = :event_id', ['event_id' => $event_id], Session::class);
+        $user_id = $_SESSION['user']->id;
+        return DB::queryAll('SELECT 
+            idsession, 
+            EXISTS( select * from attendee_session 
+                    where attendee_session.attendee = :userid
+                    AND attendee_session.session = session.idsession ) as "userattending",
+            name, 
+            event, 
+            startdate,
+            enddate,
+            numberallowed,
+            event from session
+            WHERE event = :event;', [
+                'userid' => $user_id,
+                'event' => $event_id
+            ], Session::class);
     }
 
     public function add($data) {

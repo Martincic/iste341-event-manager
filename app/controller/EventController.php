@@ -3,7 +3,7 @@
 /**
  *  EventController handles routes for events
  */
-class EventController {
+class EventController extends Controller{
 
     public static function index() {
         $view = new View('app/view/pages/event/index.php');
@@ -19,7 +19,7 @@ class EventController {
 
         $event = (new Event)->getById($event_id);
 
-        $sessions = $event->sessions();
+        $sessions = (new Session)->getAll($event_id);
 
         $data = [
             'event' => $event,
@@ -42,6 +42,8 @@ class EventController {
             $session->unregister($_SESSION['user']); 
             $message = 'Succesfully removed from ' . $session->name;
         }
+
+        self::redirectBack();
 
         $view = new View('app/view/pages/event/success.php');
 

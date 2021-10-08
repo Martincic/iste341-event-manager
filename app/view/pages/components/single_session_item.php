@@ -8,7 +8,6 @@ $duration = $date1->diff($date2)->format("%hh, %imin");
 $x = 0;
 
 $currentAttendees = count($session->attendees());
-
 ?>
 
 <div class="swiper-slide">
@@ -33,7 +32,12 @@ $currentAttendees = count($session->attendees());
 
                 <!-- REGISTER BTN -->
                 <!-- CHECK IF USER IS ALREADY REGISTERED TO THIS SESSION -->
-                <a href="<?php echo $data['event']->idevent . '/register/' . $session->idsession?>"><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Register</span></button></a>
+                
+                <a href="<?php echo $data['event']->idevent . '/register/' . $session->idsession?>"><button type="button" class="btn-blue mt-4">
+                    <span class="btn-blue-span">
+                    <?php if($session->userattending) echo 'Unregister'; else echo 'Register'?>
+                    </span>
+                    </button></a>
             </div>
         </div>   
     </div>

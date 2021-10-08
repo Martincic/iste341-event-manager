@@ -17,7 +17,6 @@ class Event extends Model{
         
         $event_obj->venue = $venue->getById($venue_id);
         
-        
         return $event_obj;
     }
 
