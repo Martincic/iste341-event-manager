@@ -80,10 +80,6 @@ $currentAttendees = count($session->attendees());
                 <!-- SESSIONS BTN -->
                 <div class="row pt-5">
                 
-                    <div class="col-md-6">
-                        <a href=""><button type="button" class="btn-blue mt-4"><span class="btn-blue-span">Attendees</span></button></a>
-                    </div>  
-                
                 
                 <form action="<?php echo 'sessions/'. $session->idsession . '/deleteSession';?>" method="post">
                     <!-- DELETE BTN -->
