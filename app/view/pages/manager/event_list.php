@@ -33,13 +33,6 @@
                     ';
                 } 
             ?>  
-            <?php 
-                if(isset($_SESSION['user']->role) && $_SESSION['user']->role == '1') {
-                    echo '
-                        <li><a href="#tabs-4">Edit venues</a></li>
-                    ';
-                } 
-            ?> 
             
         </ul>
         <div id="tabs-1" class="">
@@ -87,27 +80,6 @@
                                 <div class="swiper-wrapper">';
                                     
                                     include(__DIR__.'/../components/single_create_venue_item.php');
-                                    
-                                echo '</div>
-                                <div class="swiper-pagination"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                ';
-            } 
-        ?>  
-
-        <?php 
-            if(isset($_SESSION['user']->role) && $_SESSION['user']->role == '1') {
-                echo '
-                <div id="tabs-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="swiper mySwiper">
-                                <div class="swiper-wrapper">';
-                                    
-                                    include(__DIR__.'/../components/single_edit_venue_item.php');
                                     
                                 echo '</div>
                                 <div class="swiper-pagination"></div>

@@ -39,8 +39,9 @@ CREATE TABLE `attendee` (
 --
 
 INSERT INTO `attendee` (`id`, `name`, `password`, `role`) VALUES
-(30, 'tomas', '1234', 1),
-(29, 'tomas111111', 'aaaa', 1);
+(30, 'manager1', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 2),
+(29, 'aadmin', 'fc3f89cbadfb2f3caf610d99bb9dc92f107bdff59ef770d2bbcde88e1a80a9b3', 1),
+(28, 'simple', 'd74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1', 3);
 
 -- --------------------------------------------------------
 
@@ -87,8 +88,7 @@ CREATE TABLE `event` (
 INSERT INTO `event` (`idevent`, `name`, `datestart`, `dateend`, `numberallowed`, `venue`) VALUES
 (1, 'Moto GP racing', '2021-10-04 08:13:18', '2021-10-08 10:13:18', 1500, 1),
 (2, 'Super event 500', '2021-10-06 10:13:18', '2021-10-14 10:13:18', 3450, 2),
-(3, 'Tee Hee hee', '2021-10-06 08:13:18', '2021-10-19 10:13:18', 900, 2),
-(4, 'Grupno pijenje vode', '2021-12-06 10:13:18', '2021-12-14 10:13:18', 450, 1);
+(3, 'Grupno pijenje vode', '2021-12-06 10:13:18', '2021-12-14 10:13:18', 450, 3);
 
 -- --------------------------------------------------------
 
@@ -144,9 +144,9 @@ INSERT INTO `session` (`idsession`, `name`, `numberallowed`, `event`, `startdate
 (1, 'Race track 1', 100, 1, '2021-10-04 08:00:58', '2021-10-04 11:45:58'),
 (2, 'Offroad Race', 450, 1, '2021-10-04 09:00:58', '2021-10-04 16:30:58'),
 (3, 'Jedenje domacica', 100, 2, '2021-10-04 08:00:58', '2021-10-04 11:45:58'),
-(4, 'Pricanje s duhovima', 450, 2, '2021-10-04 09:00:58', '2021-10-04 16:30:58'),
-(5, 'Jedenje domacica', 100, 3, '2021-10-04 08:00:58', '2021-10-04 11:45:58'),
-(6, 'Pricanje s duhovima', 450, 3, '2021-10-04 09:00:58', '2021-10-04 16:30:58');
+(4, 'Yoga parti', 450, 2, '2021-10-04 09:00:58', '2021-10-04 16:30:58'),
+(5, 'Jana Warmup', 100, 3, '2021-10-04 08:00:58', '2021-10-04 11:45:58'),
+(6, 'Main session Jamnica', 450, 3, '2021-10-04 09:00:58', '2021-10-04 16:30:58');
 
 -- --------------------------------------------------------
 
@@ -166,15 +166,26 @@ CREATE TABLE `venue` (
 
 INSERT INTO `venue` (`idvenue`, `name`, `capacity`) VALUES
 (1, 'Arena Centar', 3000),
-(2, 'Bundek park', 6000);
+(2, 'Bundek park', 6000),
+(3, 'Jarun', 3000);
 
 --
 -- Dumping data for table `attendee_session`
 --
 
 INSERT INTO `attendee_session` (`session`, `attendee`) VALUES
-(1, 30);
-
+(1, 30),
+(1, 29),
+(2, 30),
+(2, 29),
+(3, 29),
+(3, 28),
+(4, 29),
+(4, 28),
+(5, 30),
+(5, 28),
+(6, 30),
+(6, 28);
 -- --------------------------------------------------------
 
 --
@@ -182,7 +193,21 @@ INSERT INTO `attendee_session` (`session`, `attendee`) VALUES
 --
 
 INSERT INTO `attendee_event` (`event`, `attendee`, `paid`) VALUES
-(1, 30, 100);
+(1, 30, 100),
+(1, 29, 100),
+(2, 29, 150),
+(2, 28, 150),
+(3, 28, 140),
+(3, 30, 140);
+
+-- --------------------------------------------------------
+--
+-- Dumping data for table `manager_event`
+--
+
+INSERT INTO `manager_event` (`event`, `manager`) VALUES
+(1, 30),
+(2, 30);
 
 -- --------------------------------------------------------
 

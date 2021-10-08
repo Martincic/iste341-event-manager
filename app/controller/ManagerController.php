@@ -30,27 +30,27 @@ class ManagerController extends Controller {
     */
     public static function createEvent(){
 
-        $name = (new Filter)->data('Name', $_POST['Name'])
+        $name = (new Filter)->data('Name', $_POST['Name'] ?? null)
                                 ->sanitize_string()
                                 ->required()
-                                ->pattern('Alphanumeric')
+                                ->pattern('words')
                                 ->min(3)
                                 ->max(20);
 
-        $dateStart = (new Filter)->data('DateStart', $_POST['DateStart'])
+        $dateStart = (new Filter)->data('DateStart', $_POST['DateStart'] ?? null)
                                 ->sanitize_string()
                                 ->required();
 
-        $dateEnd = (new Filter)->data('DateEnd', $_POST['DateEnd'])
+        $dateEnd = (new Filter)->data('DateEnd', $_POST['DateEnd'] ?? null)
                                 ->sanitize_string()
                                 ->required();
 
-        $numberAllowed = (new Filter)->data('NumberAllowed', $_POST['NumberAllowed'])
+        $numberAllowed = (new Filter)->data('NumberAllowed', $_POST['NumberAllowed'] ?? null)
                                 ->sanitize_int()
                                 ->required()
                                 ->pattern('int');
 
-        $venue = (new Filter)->data('Venue', $_POST['venue'])
+        $venue = (new Filter)->data('Venue', $_POST['venue'] ?? null)
                                 ->sanitize_int()
                                 ->required()
                                 ->pattern('int');
@@ -79,7 +79,11 @@ class ManagerController extends Controller {
             "numberallowed"=> $numberAllowed->value,
             "venue"=> $venue->value,
         ];
-        Event::add($data);
+        try{
+            Event::add($data);
+        }
+        catch(PDOException $pdo) {
+        }
 
         self::redirectBack();
     }
@@ -90,22 +94,22 @@ class ManagerController extends Controller {
     */
     public static function createSession($event_id){
         
-        $name = (new Filter)->data('Name', $_POST['Name'])
+        $name = (new Filter)->data('Name', $_POST['Name'] ?? null)
                                 ->sanitize_string()
                                 ->required()
-                                ->pattern('Alphanumeric')
+                                ->pattern('words')
                                 ->min(3)
                                 ->max(50);
 
-        $dateStart = (new Filter)->data('DateStart', $_POST['DateStart'])
+        $dateStart = (new Filter)->data('DateStart', $_POST['DateStart'] ?? null)
                                 ->sanitize_string()
                                 ->required();
 
-        $dateEnd = (new Filter)->data('DateEnd', $_POST['DateEnd'])
+        $dateEnd = (new Filter)->data('DateEnd', $_POST['DateEnd'] ?? null)
                                 ->sanitize_string()
                                 ->required();
 
-        $numberAllowed = (new Filter)->data('NumberAllowed', $_POST['NumberAllowed'])
+        $numberAllowed = (new Filter)->data('NumberAllowed', $_POST['NumberAllowed'] ?? null)
                                 ->sanitize_int()
                                 ->required()
                                 ->pattern('int');
@@ -143,14 +147,14 @@ class ManagerController extends Controller {
         CREATE VENUE 
     */
     public static function createVenue(){
-        $name = (new Filter)->data('Name', $_POST['Name'])
+        $name = (new Filter)->data('Name', $_POST['Name'] ?? null)
                                 ->sanitize_string()
                                 ->required()
-                                ->pattern('Alphanumeric')
+                                ->pattern('words')
                                 ->min(3)
                                 ->max(50);
 
-        $capacity = (new Filter)->data('Capacity', $_POST['Capacity'])
+        $capacity = (new Filter)->data('Capacity', $_POST['Capacity'] ?? null)
                                 ->sanitize_int()
                                 ->required()
                                 ->pattern('int');
@@ -170,7 +174,12 @@ class ManagerController extends Controller {
             "name"=> $name->value,
             "capacity"=> $capacity->value
         ];
-        Venue::add($data);
+        
+        try{
+            Venue::add($data);
+        }
+        catch(PDOException $pdo) {
+        }
 
         self::redirectBack();
     }
